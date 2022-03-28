@@ -15,7 +15,7 @@
 #' mod <- mod_penalized(data, y.var.name = "SUBEX")
 #'
 mod_penalized <- function (data, X.vars.names = character(), y.var.name,
-                              alpha = 1, type.measure = "rmse") {
+                           alpha = 1, type.measure = "rmse") {
   if (length(X.vars.names) == 0) {
     data <- data[, X.vars.names]
   }
