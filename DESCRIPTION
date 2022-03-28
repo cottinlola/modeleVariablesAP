@@ -13,5 +13,6 @@ Imports:
     devtools,
     glmnet,
     MASS,
-    lme4
+    lme4,
+    stringr
 RoxygenNote: 7.1.2
