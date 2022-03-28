@@ -9,3 +9,5 @@ Description: Ce package a pour objectif d'automatiser des modèles dans des fonc
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Imports:
+    devtools
