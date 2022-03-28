@@ -1,11 +1,11 @@
 Package: modeleVariablesAP
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Apply models to all variables
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Lola Cottin, Yacine Bouhamidi, Marie Gaffet, Vadim Bertrand
+Maintainer: Lola Cottin <lola.cottin@aol.fr>
+Description: Ce package a pour objectif d'automatiser des modèles dans des fonctions afin de les appliquer avec différentes variables explicatiques
+    Il automatisera aussi des calculs d'indicateurs d'ajustement du modèle aux données (tel que le RMSE) et des visualisations (tel que le graphique de y estimé en fonction de y observé).
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
