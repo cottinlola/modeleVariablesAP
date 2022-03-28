@@ -12,5 +12,6 @@ LazyData: true
 Imports:
     devtools,
     glmnet,
-    MASS
+    MASS,
+    lme4
 RoxygenNote: 7.1.2
