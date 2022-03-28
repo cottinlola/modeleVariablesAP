@@ -4,8 +4,8 @@
 #' @param pct_train ratio pour le jeu d'apprentissage
 #' @return liste : jeu d'apprentissage , jeu de test
 #' @examples
-#' add(1, 1)
-#' add(10, 1)
+#' div_jeu(data)
+#' div_jeu(data, 0.7)
 div_jeu <- function(data, pct_train = 0.9) {
     idx_train <- sample(nrow(data), round(nrow(data) * 0.9))
     data_train <- data[idx_train, ]
