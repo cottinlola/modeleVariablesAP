@@ -9,7 +9,7 @@ conversion_milliers <- function(data){
   var_num <- setdiff(names(which(sapply(data, is.numeric))), c("IDNUM", "MILEX"))
   medians <- sapply(data[, var_num], median)
   var_milliers <- names(which(medians >= 1000))
-  data_ind_milliers <- data_ind_no_outliers
+  data_ind_milliers <- data
   data_ind_milliers[, var_milliers] <- data_ind_milliers[, var_milliers] / 1000
   return(data_ind_milliers)
 }

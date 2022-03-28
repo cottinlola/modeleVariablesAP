@@ -7,8 +7,8 @@
 #' supp_outliers(data_ind_5y, TRUE)
 
 supp_outliers <- function(data, graph = FALSE){
-  var_num <- setdiff(names(which(sapply(data_ind_5y, is.numeric))), c("IDNUM", "MILEX"))
-  data_ind_num <- data_ind_5y[, var_num]
+  var_num <- setdiff(names(which(sapply(data, is.numeric))), c("IDNUM", "MILEX"))
+  data_ind_num <- data[, var_num]
   # Pn garde uniquement les variables avec suffisamment de variabilité
   t <- sapply(data_ind_num, function(c) {
     tt <- table(c)
