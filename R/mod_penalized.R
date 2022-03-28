@@ -4,7 +4,7 @@
 #' @param data A numeric dataset in matrix-convertible format
 #' @param X_vars_names A character vector of explainatory variables names
 #' @param y_var_name A character naming the variable to explain
-#' @param alpha A numeric to balance betwwen ridge (alpha=0) and lasso
+#' @param alpha A numeric to compromise between ridge (alpha=0) and lasso
 #'              (alpha=1, default) penalization
 #' @param type_measure  A character naming the error metric used for the
 #'                      cross-validation (defaults to "rmse")
