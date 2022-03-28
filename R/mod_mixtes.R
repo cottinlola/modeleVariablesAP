@@ -2,7 +2,7 @@
 #'
 #' @param data_train jeu d'apprentissage du modèle
 #' @param y_name variable à expliquer
-#' @param effets
+#' @param effets effets aléatoires
 #' @param vars vecteur des noms des variables explicatives
 #'             (par défaut toutes les variables sauf y)
 #' @param formule formule de l'équation du modèle
