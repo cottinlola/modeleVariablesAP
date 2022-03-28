@@ -10,7 +10,7 @@ mod_penalized(
   X_vars_names = character(),
   y_var_name,
   alpha = 1,
-  type.measure = "rmse"
+  type_measure = "rmse"
 )
 }
 \arguments{
@@ -23,7 +23,7 @@ mod_penalized(
 \item{alpha}{A numeric to balance betwwen ridge (alpha=0) and lasso
 (alpha=1, default) penalization}
 
-\item{type.measure}{A character naming the error metric used for the
+\item{type_measure}{A character naming the error metric used for the
 cross-validation (defaults to "rmse")}
 }
 \value{
