@@ -1,11 +1,15 @@
-#' Applique un modèle mixte
+#' Renvoie les y prédits/estimés d'un modèle
 #'
 #' @param model modèle de prédiction
 #' @param data_test jeu de test du modèle
 #' @param allow_new_levels True par défaut
 #' @return vecteur de prédiction de y
 #' @examples
-#' mod_mixtes(data_train, "RESCO", "(MILEX | IDNUM)")
+#' predict_y(mod_en, data_test)
+#' predict_y(mod_lm, data_test)
+#' predict_y(mod_sw, data_test)
+#' predict_y(mod_lmer, data_test)
+#' predict_y(mod_lmer, data_test, allow_new_levels = F)
 predict_y <- function(model, data_test, allow_new_levels = T) {
     mymod <- class(model)[1]
     y_hat <- c()

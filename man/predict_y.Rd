@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict_y.R
 \name{predict_y}
 \alias{predict_y}
-\title{Applique un modèle mixte}
+\title{Renvoie les y prédits/estimés d'un modèle}
 \usage{
 predict_y(model, data_test, allow_new_levels = T)
 }
@@ -17,8 +17,12 @@ predict_y(model, data_test, allow_new_levels = T)
 vecteur de prédiction de y
 }
 \description{
-Applique un modèle mixte
+Renvoie les y prédits/estimés d'un modèle
 }
 \examples{
-mod_mixtes(data_train, "RESCO", "(MILEX | IDNUM)")
+predict_y(mod_en, data_test)
+predict_y(mod_lm, data_test)
+predict_y(mod_sw, data_test)
+predict_y(mod_lmer, data_test)
+predict_y(mod_lmer, data_test, allow_new_levels = F)
 }
