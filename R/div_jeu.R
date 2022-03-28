@@ -1,5 +1,5 @@
 #' Divise le jeu de données en jeu d'apprentissage et en jeu de test
-#' 
+#'
 #' @param data le jeu de données
 #' @param pct_train ratio pour le jeu d'apprentissage
 #' @return liste : jeu d'apprentissage , jeu de test
