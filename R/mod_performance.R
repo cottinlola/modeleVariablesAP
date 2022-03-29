@@ -1,0 +1,22 @@
+#' Returns a basic summary of a model's performance
+#'
+#' @param model The model to evaluate
+#' @param data_test A data.frame of test data
+#' @param y_name The variable to explain
+#' @param metric The metric to use for error computation
+#' @param below_cutoff seuil à dépasser
+#' @return A data.frame holding the r.squared and errors metrics
+#'
+#' @export
+#'
+#' @examples
+#' mod_performance(model, data_test, "RESCO", c("MACHINE.IND", "MILEX"))
+mod_performance <- function(model, data_test, y_name, metric, below_cutoff) {
+  r.squared <- summary(model)$r.squared
+  err <- model_error(model, data_test, y_name, metric, below_cutoff)
+  df <- data.frame(r = round(r.squared, digits = 2), err = err$error,
+                   below_error = paste0(formatC(err$below_error, digits = 2,
+                                                format = "f"), "%"))
+  colnames(res) <- c("R2", metric, paste0("mape<=", below_cutoff, "%"))
+  return(df)
+}

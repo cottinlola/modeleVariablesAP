@@ -14,13 +14,17 @@ mod_lineaires(
 )
 }
 \arguments{
+\item{data_train}{le jeu de données d'entrainement}
+
+\item{data_test}{le jeu de données de test}
+
 \item{X_names}{les noms des variables explicatives}
 
 \item{y_name}{le nom de la variable à expliquer}
 
-\item{metric}{seuil à dépasser}
+\item{metric}{metrique d'erreur}
 
-\item{data}{le jeu de données}
+\item{below_cutoff}{seuil à dépasser}
 }
 \value{
 data.frame (r2 et erreurs)
@@ -29,5 +33,5 @@ data.frame (r2 et erreurs)
 Applique des modèles linéaires simples et en retourne un résumé
 }
 \examples{
-mod_lineaires(data, "RESCO", c("MACHINE.IND", "MILEX"))
+mod_lineaires(data_train, data_test, "RESCO", c("MACHINE.IND", "MILEX"))
 }

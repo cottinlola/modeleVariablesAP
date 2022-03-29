@@ -4,7 +4,7 @@
 \alias{model_error}
 \title{Returns the error introduced by a model}
 \usage{
-model_error(model, data_test, y_name, metric = "rmse")
+model_error(model, data_test, y_name, metric = "rmse", below_cutoff = 5)
 }
 \arguments{
 \item{model}{A model}
@@ -14,6 +14,8 @@ model_error(model, data_test, y_name, metric = "rmse")
 \item{y_name}{A character naming the variable to explain}
 
 \item{metric}{A character naming how to compute the error}
+
+\item{below_cutoff}{A numeric being the threshold value}
 }
 \value{
 The numeric error

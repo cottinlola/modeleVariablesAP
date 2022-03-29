@@ -124,6 +124,7 @@ percent_err_below <- function(actual, predicted, cutoff = 5, metric = "mape") {
 #' @param data_test A data.frame
 #' @param y_name A character naming the variable to explain
 #' @param metric A character naming how to compute the error
+#' @param below_cutoff A numeric being the threshold value
 #'
 #' @return The numeric error
 #'
@@ -131,9 +132,10 @@ percent_err_below <- function(actual, predicted, cutoff = 5, metric = "mape") {
 #'
 #' @examples
 #' model_error(mod_lm, data_test, y_name = "SUBEX", metric = "rmse")
-model_error <- function(model, data_test, y_name, metric = "rmse") {
+model_error <- function(model, data_test, y_name, metric = "rmse",
+                        below_cutoff = 5) {
   actual <- data_test[, y_name]
   predicted <- predict_y(model, data_test)
   return(list(error = error(actual, predicted, metric),
-              below_error = percent_err_below(actual, predicted)))
+              below_error = percent_err_below(actual, predicted, below_cutoff)))
 }
