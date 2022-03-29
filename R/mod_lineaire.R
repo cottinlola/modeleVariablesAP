@@ -30,13 +30,13 @@ mod_lineaire <- function(data, X_names, y_name) {
 #' mod_lineaires(data_train, data_test, "RESCO", c("MACHINE.IND", "MILEX"))
 mod_lineaires <- function(data_train, data_test, X_names, y_name,
                           metric = "rmse", below_cutoff = 5) {
-  res <- lapply(setdiff(X_names, y_name), function (X_name) {
+  X_names <- setdiff(X_names, y_name)
+  res <- lapply(, function (X_name) {
     m <- mod_lineaire(data_train, X_name, y_name)
-    df <- mod_performance(m, data_test, y_name, metric, below_cutoff)
-    df$X <- X_name
-    return(df)
+    return(mod_performance(m, data_test, y_name, metric, below_cutoff))
   })
   res <- do.call(rbind, res)
+  rownames(res) <- X_names
   return(res)
 }
 
