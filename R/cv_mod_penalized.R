@@ -2,8 +2,8 @@
 #' alpha and lambda hyperparameters
 #'
 #' @param data A numeric dataset in matrix-convertible format
-#' @param X_vars_names A character vector of explainatory variables names
-#' @param y_var_name A character naming the variable to explain
+#' @param X_names A character vector of explainatory variables names
+#' @param y_name A character naming the variable to explain
 #' @param alpha A numeric vector of alpha to use for the cross-validation
 #' @param cv_strat  A character telling which alpha should be consider optimal
 #'                      "min": minimize the error
@@ -16,15 +16,15 @@
 #' @return The fitted model
 #'
 #' @example
-#' mod <- cv_mod_penalized(data, y_var_name = "SUBEX")
+#' mod <- cv_mod_penalized(data, y_name = "SUBEX")
 #'
-cv_mod_penalized <- function(data, X_vars_names = character(), y_var_name,
+cv_mod_penalized <- function(data, X_names = character(), y_name,
                              alpha = seq(0, 1, by = .2), cv_strat = "min",
                              n_folds = 10, type_measure = "rmse") {
   # assign every observation to a fold
   folds_id <- sample(rep(seq(n_folds), length = nrow(data)))
   # for every alpha to consider compute its error over the different folds
-  err <- lapply(alpha, function(a) folds_err(data, X_vars_names, y_var_name,
+  err <- lapply(alpha, function(a) folds_err(data, X_names, y_name,
                                              a, cv_strat, n_folds,
                                              type_measure, folds_id))
   names(err) <- alpha
@@ -36,7 +36,7 @@ cv_mod_penalized <- function(data, X_vars_names = character(), y_var_name,
     err$sd[[alpha_min]])])
   alpha <- if (cv_strat == "min") alpha_min else alpha_1se
   # fitting the final penalized model using the "optimal" alpha
-  mod_full <- mod_penalized(data, X_vars_names, y_var_name, alpha, type_measure)
+  mod_full <- mod_penalized(data, X_names, y_name, alpha, type_measure)
   mod_full$alpha <- alpha
   return(mod_full)
 }
@@ -44,8 +44,8 @@ cv_mod_penalized <- function(data, X_vars_names = character(), y_var_name,
 #' Computes the mean and deviation of the error over the folds
 #'
 #' @param data A numeric dataset in matrix-convertible format
-#' @param X_vars_names A character vector of explainatory variables names
-#' @param y_var_name A character naming the variable to explain
+#' @param X_names A character vector of explainatory variables names
+#' @param y_name A character naming the variable to explain
 #' @param alpha A numeric to compromise between ridge and lasso penalization
 #' @param cv_strat  A character telling which alpha should be consider optimal
 #' @param n_folds An integer giving the number of folds tu use in k-folds cv
@@ -60,10 +60,10 @@ cv_mod_penalized <- function(data, X_vars_names = character(), y_var_name,
 #'
 #' @noRd
 #'
-folds_err <- function(data, X_vars_names, y_var_name, alpha, cv_strat, n_folds,
+folds_err <- function(data, X_names, y_name, alpha, cv_strat, n_folds,
                       type_measure, folds_id) {
   alpha_err <- lapply(1:n_folds, function(fid)
-      fold_err(data, X_vars_names, y_var_name, alpha, cv_strat, type_measure,
+      fold_err(data, X_names, y_name, alpha, cv_strat, type_measure,
                folds_id, fid))
   # returns error mean and sd over the folds
   return(list(mean = mean(alpha_err), sd = sd(alpha_err)))
@@ -72,8 +72,8 @@ folds_err <- function(data, X_vars_names, y_var_name, alpha, cv_strat, n_folds,
 #' Computes the error for a fold between the estimated and true values
 #'
 #' @param data A numeric dataset in matrix-convertible format
-#' @param X_vars_names A character vector of explainatory variables names
-#' @param y_var_name A character naming the variable to explain
+#' @param X_names A character vector of explainatory variables names
+#' @param y_name A character naming the variable to explain
 #' @param alpha A numeric to compromise between ridge and lasso penalization
 #' @param cv_strat  A character telling which alpha should be consider optimal
 #' @param type_measure  A character naming the error metric used for the cv
@@ -88,7 +88,7 @@ folds_err <- function(data, X_vars_names, y_var_name, alpha, cv_strat, n_folds,
 #'
 #' @noRd
 #'
-fold_err <- function(data, X_vars_names, y_var_name, alpha, cv_strat,
+fold_err <- function(data, X_names, y_name, alpha, cv_strat,
                      type_measure, folds_id, fid) {
   whichs <- folds_id == fid
   # restrict training data to observations not assigned to the fold fid
@@ -96,7 +96,7 @@ fold_err <- function(data, X_vars_names, y_var_name, alpha, cv_strat,
   # restrict test data to observations assigned to the fold fid
   data_test <- data[whichs, ]
   # fit a penalized model
-  mod_en <- mod_penalized(data_train, X_vars_names, y_var_name, alpha = alpha,
+  mod_en <- mod_penalized(data_train, X_names, y_name, alpha = alpha,
                           type_measure = type_measure)
   # select variables' names for a given lambda
   lambda_idx <- which(mod_en$lambda == mod_en[[paste("lambda", cv_strat,
@@ -104,13 +104,12 @@ fold_err <- function(data, X_vars_names, y_var_name, alpha, cv_strat,
   vars_idx <- which(mod_en$beta[, lambda_idx] > 0)
   vars_names <- mod_en$beta@Dimnames[[1]][vars_idx]
   # fit linear model restricted to the selected variables
-  mod_lm <- lm(as.formula(paste0(y_var_name, " ~ ",
+  mod_lm <- lm(as.formula(paste0(y_name, " ~ ",
                                  paste0(vars_names, collapse = " + "))),
                data = data_train)
   # estimate test y
   y_est <- predict(mod_lm, newdata = data_test)
   # compute error
-  # TODO: use type_measure instead of hard coding the RMSE
-  y_err <- sqrt(mean((data_test[, y_var_name] - y_est)^2))
-  return(y_err)
+  err_fun <- get_metric_fun(type_measure)
+  return(err_fun(data_test[, y_name], y_est))
 }

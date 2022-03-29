@@ -2,8 +2,8 @@
 #' lambda hyperparameter
 #'
 #' @param data A numeric dataset in matrix-convertible format
-#' @param X_vars_names A character vector of explainatory variables names
-#' @param y_var_name A character naming the variable to explain
+#' @param X_names A character vector of explainatory variables names
+#' @param y_names A character naming the variable to explain
 #' @param alpha A numeric to compromise between ridge (alpha=0) and lasso
 #'              (alpha=1, default) penalization
 #' @param type_measure  A character naming the error metric used for the
@@ -12,15 +12,15 @@
 #' @return The fitted model
 #'
 #' @example
-#' mod <- mod_penalized(data, y_var_name = "SUBEX")
+#' mod <- mod_penalized(data, y_names = "SUBEX")
 #'
-mod_penalized <- function(data, X_vars_names = character(), y_var_name,
+mod_penalized <- function(data, X_names = character(), y_names,
                           alpha = 1, type_measure = "rmse") {
-  if (length(X_vars_names) == 0) {
-    data <- data[, X_vars_names]
+  if (length(X_names) == 0) {
+    data <- data[, X_names]
   }
-  X <- data[, -y_var_name]
-  y <- data[, y_var_name]
+  X <- data[, -y_names]
+  y <- data[, y_names]
   mod_en <- glmnet::cv.glmnet(x = as.matrix(X), y = y, alpha = alpha,
                               type.measure = type_measure)
   mod_en$glmnet.fit$cvm <- mod_en$cvm
