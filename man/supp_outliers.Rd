@@ -4,10 +4,12 @@
 \alias{supp_outliers}
 \title{Suppression des outliers}
 \usage{
-supp_outliers(data, graph = FALSE)
+supp_outliers(data, custom_cutoff = NULL, graph = FALSE)
 }
 \arguments{
 \item{data}{le jeu de données}
+
+\item{custom_cutoff}{permet de spécifier un cutoff arbitraire}
 
 \item{graph}{pour représenter les points (TRUE ou FALSE)}
 }
@@ -18,5 +20,5 @@ dataframe ou plot : le jeu de données sans les outliers ou la représentation g
 Suppression des outliers
 }
 \examples{
-supp_outliers(data_ind_5y, TRUE)
+supp_outliers(data_ind_5y, graph = TRUE)
 }
