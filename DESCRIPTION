@@ -14,5 +14,6 @@ Imports:
     glmnet,
     MASS,
     lme4,
-    stringr
+    stringr,
+    mvoutlier
 RoxygenNote: 7.1.2
