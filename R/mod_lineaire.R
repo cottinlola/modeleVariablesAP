@@ -28,11 +28,12 @@ mod_lineaire <- function(data, X_names, y_name) {
 #' mod_lineaires(data, "RESCO", c("MACHINE.IND", "MILEX"))
 mod_lineaires <- function(data_train, data_test, X_names, y_name,
                           metric = "rmse", below_cutoff = 5) {
-  res <- lapply(X_names, function (X_name) {
+  res <- lapply(setdiff(X_names, y_name), function (X_name) {
     m <- mod_lineaire(data_train, X_name, y_name)
     r.squared <- summary(m)$r.squared
     err <- model_error(m, data_test, y_name, metric)
-    return(data.frame(X = X_name, r = r.squared, err = err$error,
+    return(data.frame(X = X_name, r = round(r.squared, digits = 2),
+                      err = err$error,
                       below_error = paste0(formatC(err$below_error, digits = 2,
                                                    format = "f"), "%")))
   })
@@ -56,6 +57,7 @@ mod_lineaires <- function(data_train, data_test, X_names, y_name,
 #' @examples
 #' mod_lineaires_best_var(data, "RESCO", c("MACHINE.IND", "MILEX"))
 mod_lineaires_best_var <- function(data, X_names, y_name, cutoff = .7) {
+  X_names <- setdiff(X_names, y_name)
   r.squared <- sapply(X_names, function (X_name) {
     m <- mod_lineaire(data, X_name, y_name)
     return(summary(m)$r.squared)
