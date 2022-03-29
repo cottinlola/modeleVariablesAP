@@ -102,9 +102,8 @@ fold_err <- function(data, X_names, y_name, alpha, cv_strat,
   mod_en <- mod_penalized(data_train, X_names, y_name, alpha = alpha,
                           type_measure = type_measure)
   # select variables' names for a given lambda
-  lambda_idx <- which(mod_en$lambda == mod_en[[paste("lambda", cv_strat,
-                                                     sep = ".")]])
-  vars_names <- names(which(mod_en$beta[, lambda_idx] > 0))
+  vars_names <- mod_penalized_select_variables(
+    mod_en, mod_en[[paste("lambda", cv_strat, sep = ".")]])
   # fit linear model restricted to the selected variables
   mod_lm <- mod_lineaire(data_train, vars_names, y_name)
   err <- model_error(mod_lm, data_test, y_name, metric = type_measure)
