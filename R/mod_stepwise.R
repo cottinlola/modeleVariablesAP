@@ -1,6 +1,6 @@
 #' Régression stepwise (pas-à-pas)
 #'
-#' @param x_name les noms des variables explicatives
+#' @param X_names les noms des variables explicatives
 #' @param y_name le nom de la variable à expliquer
 #' @param data le jeu de données
 #' @param direction la méthode utilisée dans le stepwise :
@@ -10,13 +10,10 @@
 #' @export
 #'
 #' @examples
-#' mod_stepwise(x_name, y_name, data_train, "backward")
-
-mod_stepwise <- function(x_name, y_name, data, direction = "both") {
+#' mod_stepwise(data, X_names, y_name, "backward")
+mod_stepwise <- function(data, X_names, y_name, direction = "both") {
   # Fit the full model
-  fullmodel <- lm(as.formula(paste0(y_name, " ~ ",
-                             paste0(x_name, collapse = " + "))),
-                             data = data)
+  fullmodel <- mod_lineaire(data, X_names, y_name)
   # Stepwise regression model
   stepmodel <- MASS::stepAIC(fullmodel, direction = direction, trace = FALSE)
   return(stepmodel)

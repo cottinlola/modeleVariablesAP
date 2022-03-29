@@ -4,14 +4,14 @@
 \alias{mod_stepwise}
 \title{Régression stepwise (pas-à-pas)}
 \usage{
-mod_stepwise(x_name, y_name, data, direction = "both")
+mod_stepwise(data, X_names, y_name, direction = "both")
 }
 \arguments{
-\item{x_name}{les noms des variables explicatives}
+\item{data}{le jeu de données}
+
+\item{X_names}{les noms des variables explicatives}
 
 \item{y_name}{le nom de la variable à expliquer}
-
-\item{data}{le jeu de données}
 
 \item{direction}{la méthode utilisée dans le stepwise :
 "backward", "forward" ou "both (par défaut)}
@@ -23,5 +23,5 @@ model : le meilleur modèle (basé sur l'AIC) par la méthode stepwise
 Régression stepwise (pas-à-pas)
 }
 \examples{
-mod_stepwise(x_name, y_name, data_train, "backward")
+mod_stepwise(data, X_names, y_name, "backward")
 }

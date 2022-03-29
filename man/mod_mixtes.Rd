@@ -5,15 +5,15 @@
 \title{Applique un modèle mixte}
 \usage{
 mod_mixtes(
-  data_train,
+  data,
   y_name,
   effets,
-  vars = setdiff(names(data_train), y_name),
+  vars = setdiff(names(data), y_name),
   formule = "auto"
 )
 }
 \arguments{
-\item{data_train}{jeu d'apprentissage du modèle}
+\item{data}{jeu d'apprentissage du modèle}
 
 \item{y_name}{variable à expliquer}
 

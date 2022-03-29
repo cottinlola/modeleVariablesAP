@@ -106,9 +106,7 @@ fold_err <- function(data, X_names, y_name, alpha, cv_strat,
                                                      sep = ".")]])
   vars_names <- names(which(mod_en$beta[, lambda_idx] > 0))
   # fit linear model restricted to the selected variables
-  mod_lm <- lm(as.formula(paste0(y_name, " ~ ",
-                                 paste0(vars_names, collapse = " + "))),
-               data = data_train)
+  mod_lm <- mod_lineaire(data_train, vars_names, y_name)
   # estimate test y
   y_est <- predict_y(mod_lm, data_test)
   # compute error
