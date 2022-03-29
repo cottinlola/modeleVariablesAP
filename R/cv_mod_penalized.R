@@ -36,10 +36,10 @@ cv_mod_penalized <- function(data, X_names = character(), y_name,
   # retrieves the greatest alpha keeping the error "close" to its minimum
   alpha_1se <- max(alpha[which(err$mean <= err$mean[[alpha_min]] +
     err$sd[[alpha_min]])])
-  alpha <- if (cv_strat == "min") alpha_min else alpha_1se
+  alpha_opt <- if (cv_strat == "min") alpha_min else alpha_1se
   # fitting the final penalized model using the "optimal" alpha
-  mod_full <- mod_penalized(data, X_names, y_name, alpha, type_measure)
-  mod_full$alpha <- alpha
+  mod_full <- mod_penalized(data, X_names, y_name, alpha_opt, type_measure)
+  mod_full$alpha <- alpha_opt
   return(mod_full)
 }
 
@@ -55,7 +55,8 @@ cv_mod_penalized <- function(data, X_names = character(), y_name,
 #' @param folds_id  An integer vector specifing to which fold an observation
 #'                  belongs
 #'
-#' @return A list with the mean and the deviation of the error over the folds
+#' @return  A data.frame with the mean and the deviation of the error over the
+#'          folds
 #'
 #' @example
 #' err <- folds_err(data, ...)
@@ -68,7 +69,7 @@ folds_err <- function(data, X_names, y_name, alpha, cv_strat, n_folds,
       fold_err(data, X_names, y_name, alpha, cv_strat, type_measure,
                folds_id, fid))
   # returns error mean and sd over the folds
-  return(list(mean = mean(alpha_err), sd = sd(alpha_err)))
+  return(data.frame(mean = mean(alpha_err), sd = sd(alpha_err)))
 }
 
 #' Computes the error for a fold between the estimated and true values
