@@ -2,7 +2,7 @@
 % Please edit documentation in R/ind_ajust.R
 \name{rmse}
 \alias{rmse}
-\title{Calcul de l'écart quadratique moyen (RMSE)}
+\title{Calcul de la racine de l'erreur quadratique moyenne (RMSE)}
 \usage{
 rmse(actual, predicted)
 }
@@ -12,10 +12,10 @@ rmse(actual, predicted)
 \item{predicted}{le vecteur des valeurs estimées}
 }
 \value{
-numeric : l'écart quadratique moyen (RMSE)
+numeric : racine de l'erreur quadratique moyenne (RMSE)
 }
 \description{
-Calcul de l'écart quadratique moyen (RMSE)
+Calcul de la racine de l'erreur quadratique moyenne (RMSE)
 }
 \examples{
 rmse(actual = c(35, 36), predicted = c(36, 34))

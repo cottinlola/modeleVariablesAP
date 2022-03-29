@@ -1,15 +1,29 @@
-#' Calcul de l'écart quadratique moyen (RMSE)
+#' Calcul de la racine de l'erreur quadratique moyenne (RMSE)
 #'
 #' @param actual le vecteur des "vraies" valeurs
 #' @param predicted le vecteur des valeurs estimées
-#' @return numeric : l'écart quadratique moyen (RMSE)
+#' @return numeric : racine de l'erreur quadratique moyenne (RMSE)
 #'
 #' @export
 #'
 #' @examples
 #' rmse(actual = c(35, 36), predicted = c(36, 34))
 rmse <- function(actual, predicted) {
-  return(sqrt(mean((actual - predicted)^2)))
+  return(sqrt(mse(actual, predicted)))
+}
+
+#' Calcul de l'erreur quadratique moyenne (MSE)
+#'
+#' @param actual le vecteur des "vraies" valeurs
+#' @param predicted le vecteur des valeurs estimées
+#' @return numeric : erreur quadratique moyenne (MSE)
+#'
+#' @export
+#'
+#' @examples
+#' mse(actual = c(35, 36), predicted = c(36, 34))
+mse <- function(actual, predicted) {
+  return(mean((actual - predicted)^2))
 }
 
 #' Calcul de l'écart moyen absolu (MAE)
@@ -60,6 +74,8 @@ get_metric_fun <- function(metric) {
     fun <- rmse
   } else if (metric == "mape") {
     fun <- mape
+  } else if (metric == "mse") {
+    fun <- mse
   }
   return(fun)
 }
