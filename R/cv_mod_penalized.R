@@ -26,7 +26,7 @@ cv_mod_penalized <- function(data, X_names = character(), y_name,
   # assign every observation to a fold
   folds_id <- sample(rep(seq(n_folds), length = nrow(data)))
   # for every alpha to consider compute its error over the different folds
-  err <- sapply(alpha, function(a) folds_err(data, X_names, y_name,
+  err <- lapply(alpha, function(a) folds_err(data, X_names, y_name,
                                              a, cv_strat, n_folds,
                                              type_measure, folds_id))
   names(err) <- alpha
