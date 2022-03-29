@@ -22,7 +22,7 @@
 #'
 cv_mod_penalized <- function(data, X_names = character(), y_name,
                              alpha = seq(0, 1, by = .2), cv_strat = "min",
-                             n_folds = 10, type_measure = "rmse") {
+                             n_folds = 10, type_measure = "mse") {
   # assign every observation to a fold
   folds_id <- sample(rep(seq(n_folds), length = nrow(data)))
   # for every alpha to consider compute its error over the different folds

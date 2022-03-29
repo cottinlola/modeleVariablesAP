@@ -17,7 +17,7 @@
 #' mod <- mod_penalized(data, y_name = "SUBEX")
 #'
 mod_penalized <- function(data, X_names = character(), y_name,
-                          alpha = 1, type_measure = "rmse") {
+                          alpha = 1, type_measure = "mse") {
   if (length(X_names) == 0) {
     data <- data[, X_names]
   }
