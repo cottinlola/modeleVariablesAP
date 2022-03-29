@@ -66,6 +66,7 @@ mape <- function(actual, predicted) {
 #' get_metric_fun("mae")
 #' get_metric_fun("rmse")
 #' get_metric_fun("mape")
+#' get_metric_fun("mse")
 get_metric_fun <- function(metric) {
   fun <- NULL
   if (metric == "mae") {

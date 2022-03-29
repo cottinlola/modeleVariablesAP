@@ -19,4 +19,5 @@ Helper function returning the desired metric function
 get_metric_fun("mae")
 get_metric_fun("rmse")
 get_metric_fun("mape")
+get_metric_fun("mse")
 }

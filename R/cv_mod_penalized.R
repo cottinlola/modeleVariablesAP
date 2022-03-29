@@ -110,7 +110,7 @@ fold_err <- function(data, X_names, y_name, alpha, cv_strat,
                                  paste0(vars_names, collapse = " + "))),
                data = data_train)
   # estimate test y
-  y_est <- predict(mod_lm, newdata = data_test)
+  y_est <- predict_y(mod_lm, data_test)
   # compute error
   err_fun <- get_metric_fun(type_measure)
   return(err_fun(data_test[, y_name], y_est))
