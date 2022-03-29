@@ -8,7 +8,7 @@ lambda hyperparameter}
 mod_penalized(
   data,
   X_names = character(),
-  y_names,
+  y_name,
   alpha = 1,
   type_measure = "rmse"
 )
@@ -18,7 +18,7 @@ mod_penalized(
 
 \item{X_names}{A character vector of explainatory variables names}
 
-\item{y_names}{A character naming the variable to explain}
+\item{y_name}{A character naming the variable to explain}
 
 \item{alpha}{A numeric to compromise between ridge (alpha=0) and lasso
 (alpha=1, default) penalization}
