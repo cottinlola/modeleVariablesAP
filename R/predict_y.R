@@ -12,11 +12,12 @@
 #' predict_y(mod_lmer, data_test, allow_new_levels = F)
 predict_y <- function(model, data_test, allow_new_levels = T) {
     mymod <- class(model)[1]
-    y_hat <- c()
+    y_hat <- NULL
     if (mymod %in% c("lm", "lmerMod")) {
         #Modèles linéaires simples/multiples, stepwise ou mixtes
-        y_hat <- predict(model, newdata = data_test)
-    }else if (mymod %in% c("cv.glmnet")) {
+        y_hat <- predict(model, newdata = data_test,
+                         allow_new_levels = allow_new_levels)
+    }else if (mymod %in% "cv.glmnet") {
         #Modèles pénalisés
         vars <- setdiff(rownames(coef(model)), "(Intercept)")
         y_hat <- predict(model, newx = as.matrix(data_test[, vars]))

@@ -3,7 +3,7 @@
 #' @param data le jeu de données
 #' @return dataframe : le jeu de données avec les données converties en milliers d'euros
 #' @examples
-#' conversion_milliers(data_ind_no_outliers)
+#' conversion_milliers(data)
 
 conversion_milliers <- function(data){
   var_num <- setdiff(names(which(sapply(data, is.numeric))), c("IDNUM", "MILEX"))

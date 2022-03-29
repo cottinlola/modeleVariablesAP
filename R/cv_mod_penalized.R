@@ -16,7 +16,7 @@
 #' @return The fitted model
 #'
 #' @example
-#' mod <- mod_penalized_alpha_cv(data, y_var_name = "SUBEX")
+#' mod <- cv_mod_penalized(data, y_var_name = "SUBEX")
 #'
 cv_mod_penalized <- function(data, X_vars_names = character(), y_var_name,
                              alpha = seq(0, 1, by = .2), cv_strat = "min",
@@ -36,8 +36,7 @@ cv_mod_penalized <- function(data, X_vars_names = character(), y_var_name,
     err$sd[[alpha_min]])])
   alpha <- if (cv_strat == "min") alpha_min else alpha_1se
   # fitting the final penalized model using the "optimal" alpha
-  mod_full <- modeleVariablesAP::mod_penalized(data, X_vars_names, y_var_name,
-                                               alpha, type_measure)
+  mod_full <- mod_penalized(data, X_vars_names, y_var_name, alpha, type_measure)
   mod_full$alpha <- alpha
   return(mod_full)
 }
@@ -97,10 +96,8 @@ fold_err <- function(data, X_vars_names, y_var_name, alpha, cv_strat,
   # restrict test data to observations assigned to the fold fid
   data_test <- data[whichs, ]
   # fit a penalized model
-  mod_en <- modeleVariablesAP::mod_penalized(data_train,
-                                             X_vars_names, y_var_name,
-                                             alpha = alpha,
-                                             type_measure = type_measure)
+  mod_en <- mod_penalized(data_train, X_vars_names, y_var_name, alpha = alpha,
+                          type_measure = type_measure)
   # select variables' names for a given lambda
   lambda_idx <- which(mod_en$lambda == mod_en[[paste("lambda", cv_strat,
                                                      sep = ".")]])
