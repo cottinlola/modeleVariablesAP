@@ -17,7 +17,7 @@ supp_outliers <- function(data, graph = FALSE){
     tt <- table(c)
     max(tt) / length(tt) * 100
   })
-  data_num <- data_num[, names(data_ind_num) %in% names(which(t < 50))]
+  data_num <- data_num[, names(data_num) %in% names(which(t < 50))]
   # On se base sur la distance de Mahalanobis
   outliers <- mvoutlier::sign1(as.matrix(data_num), qcrit = .999)
   cut_off <- outliers$const
