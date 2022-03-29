@@ -25,5 +25,5 @@ Applique des modèles linéaires simples et renvoie le nom des variables
 explicatives dont le modèle donne un R² supérieur à un seuil (défaut 70%)
 }
 \examples{
-mod_lineaires(data, "RESCO", c("MACHINE.IND", "MILEX"))
+mod_lineaires_best_var(data, "RESCO", c("MACHINE.IND", "MILEX"))
 }

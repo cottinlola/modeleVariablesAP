@@ -81,6 +81,23 @@ get_metric_fun <- function(metric) {
   return(fun)
 }
 
+#' Returns the error between actual and predicted using metric
+#'
+#' @param actual A numeric vector of true values
+#' @param predicted A numeric vector of estimated values
+#' @param metric A character naming how to compute the error
+#'
+#' @return The numeric error
+#'
+#' @export
+#'
+#' @examples
+#' error(actual = c(35, 36), predicted = c(36, 34), metric = "rmse")
+error <- function (actual, predicted, metric = "rmse") {
+  err_fun <- get_metric_fun(metric)
+  return(err_fun(actual, predicted))
+}
+
 #' Computes the percentage of prediction errors below a given threshold
 #'
 #' @param actual A numeric vector of true values
@@ -95,8 +112,28 @@ get_metric_fun <- function(metric) {
 #' @examples
 #' percent_err_below(actual = c(35, 36), predicted = c(36, 34), cutoff = 5,
 #'                   metric = "mape")
-percent_err_below <- function(actual, predicted, cutoff, metric = "mape") {
+percent_err_below <- function(actual, predicted, cutoff = 5, metric = "mape") {
   fun <- get_metric_fun(metric)
   errs <- mapply(fun, actual, predicted)
   return(100 * sum(errs <= cutoff) / length(actual))
+}
+
+#' Returns the error introduced by a model
+#'
+#' @param model A model
+#' @param data_test A data.frame
+#' @param y_name A character naming the variable to explain
+#' @param metric A character naming how to compute the error
+#'
+#' @return The numeric error
+#'
+#' @export
+#'
+#' @examples
+#' model_error(mod_lm, data_test, y_name = "SUBEX", metric = "rmse")
+model_error <- function(model, data_test, y_name, metric = "rmse") {
+  actual <- data_test[, y_name]
+  predicted <- predict_y(model, data_test)
+  return(list(error = error(actual, predicted, metric),
+              below_error = percent_err_below(actual, predicted)))
 }
