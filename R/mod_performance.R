@@ -17,6 +17,6 @@ mod_performance <- function(model, data_test, y_name, metric, below_cutoff) {
   df <- data.frame(r = round(r.squared, digits = 2), err = err$error,
                    below_error = paste0(formatC(err$below_error, digits = 2,
                                                 format = "f"), "%"))
-  colnames(res) <- c("R2", metric, paste0("mape<=", below_cutoff, "%"))
+  colnames(df) <- c("R2", metric, paste0("mape<=", below_cutoff, "%"))
   return(df)
 }
