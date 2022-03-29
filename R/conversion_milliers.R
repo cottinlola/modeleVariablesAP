@@ -2,6 +2,9 @@
 #'
 #' @param data le jeu de données
 #' @return dataframe : le jeu de données avec les données converties en milliers d'euros
+#'
+#' @export
+#'
 #' @examples
 #' conversion_milliers(data)
 

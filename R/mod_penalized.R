@@ -11,6 +11,8 @@
 #'
 #' @return The fitted model
 #'
+#' @export
+#'
 #' @example
 #' mod <- mod_penalized(data, y_names = "SUBEX")
 #'

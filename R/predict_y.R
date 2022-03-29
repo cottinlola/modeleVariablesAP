@@ -4,6 +4,9 @@
 #' @param data_test jeu de test du modèle
 #' @param allow_new_levels True par défaut
 #' @return vecteur de prédiction de y
+#'
+#' @export
+#'
 #' @examples
 #' predict_y(mod_en, data_test)
 #' predict_y(mod_lm, data_test)

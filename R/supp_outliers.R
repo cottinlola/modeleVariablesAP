@@ -3,6 +3,9 @@
 #' @param data le jeu de données
 #' @param graph pour représenter les points (TRUE ou FALSE)
 #' @return dataframe ou plot : le jeu de données sans les outliers ou la représentation graphique
+#'
+#' @export
+#'
 #' @examples
 #' supp_outliers(data_ind_5y, TRUE)
 

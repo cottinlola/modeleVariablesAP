@@ -3,6 +3,9 @@
 #' @param data le jeu de données
 #' @param pct_train ratio pour le jeu d'apprentissage
 #' @return liste : jeu d'apprentissage , jeu de test
+#'
+#' @export
+#'
 #' @examples
 #' div_jeu(data)
 #' div_jeu(data, 0.7)

@@ -15,6 +15,8 @@
 #'
 #' @return The fitted model
 #'
+#' @export
+#'
 #' @example
 #' mod <- cv_mod_penalized(data, y_name = "SUBEX")
 #'

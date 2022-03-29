@@ -8,6 +8,9 @@
 #' @param formule formule de l'équation du modèle
 #'                (par défaut : y_name ~ vars_1 + vars_2 + ... + effets)
 #' @return model
+#'
+#' @export
+#'
 #' @examples
 #' mod_mixtes(data_train, "RESCO", "(MILEX | IDNUM)")
 mod_mixtes <- function(data_train, y_name, effets,

@@ -3,6 +3,9 @@
 #' @param actual le vecteur des "vraies" valeurs
 #' @param predicted le vecteur des valeurs estimées
 #' @return numeric : l'écart quadratique moyen (RMSE)
+#'
+#' @export
+#'
 #' @examples
 #' rmse(actual = c(35, 36), predicted = c(36, 34))
 rmse <- function(actual, predicted) {
@@ -14,6 +17,9 @@ rmse <- function(actual, predicted) {
 #' @param actual le vecteur des "vraies" valeurs
 #' @param predicted le vecteur des valeurs estimées
 #' @return numeric : l'écart moyen absolu (MAE)
+#'
+#' @export
+#'
 #' @examples
 #' mae(actual = c(35, 36), predicted = c(36, 34))
 mae <- function(actual, predicted) {
@@ -25,6 +31,9 @@ mae <- function(actual, predicted) {
 #' @param actual le vecteur des "vraies" valeurs
 #' @param predicted le vecteur des valeurs estimées
 #' @return numeric : l'écart moyen absolu en pourcentage (MAPE)
+#'
+#' @export
+#'
 #' @examples
 #' mape(actual = c(35, 36), predicted = c(36, 34))
 mape <- function(actual, predicted) {
@@ -36,6 +45,8 @@ mape <- function(actual, predicted) {
 #' @param metric A character naming the expected metric function
 #'
 #' @return The function corresponding the character or NULL
+#'
+#' @export
 #'
 #' @examples
 #' get_metric_fun("mae")
@@ -61,6 +72,8 @@ get_metric_fun <- function(metric) {
 #' @param metric A character naming how to compute the error
 #'
 #' @return The numeric percentage of prediction errors below the cutoff
+#'
+#' @export
 #'
 #' @examples
 #' percent_err_below(actual = c(35, 36), predicted = c(36, 34), cutoff = 5,

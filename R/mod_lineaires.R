@@ -4,6 +4,9 @@
 #' @param y_name le nom de la variable à expliquer
 #' @param data le jeu de données
 #' @return vecteur : nom des variables explicatives pour lesquelles le modèle linéaire simple renvoie un R² supérieur à 70%
+#'
+#' @export
+#'
 #' @examples
 #' mod_lineaires("RESCO", c("MACHINE.IND", "MILEX"), data)
 

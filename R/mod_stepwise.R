@@ -6,6 +6,9 @@
 #' @param direction la méthode utilisée dans le stepwise :
 #'                  "backward", "forward" ou "both (par défaut)
 #' @return model : le meilleur modèle (basé sur l'AIC) par la méthode stepwise
+#'
+#' @export
+#'
 #' @examples
 #' mod_stepwise(x_name, y_name, data_train, "backward")
 
