@@ -10,7 +10,7 @@ mod_penalized(
   X_names = character(),
   y_name,
   alpha = 1,
-  type_measure = "rmse"
+  type_measure = "mse"
 )
 }
 \arguments{
@@ -24,7 +24,7 @@ mod_penalized(
 (alpha=1, default) penalization}
 
 \item{type_measure}{A character naming the error metric used for the
-cross-validation (defaults to "rmse")}
+cross-validation (defaults to "mse")}
 }
 \value{
 The fitted model

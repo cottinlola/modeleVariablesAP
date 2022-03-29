@@ -7,7 +7,7 @@
 #' @param alpha A numeric to compromise between ridge (alpha=0) and lasso
 #'              (alpha=1, default) penalization
 #' @param type_measure  A character naming the error metric used for the
-#'                      cross-validation (defaults to "rmse")
+#'                      cross-validation (defaults to "mse")
 #'
 #' @return The fitted model
 #'
@@ -18,7 +18,7 @@
 #'
 mod_penalized <- function(data, X_names = character(), y_name,
                           alpha = 1, type_measure = "mse") {
-  if (length(X_names) == 0) {
+  if (length(X_names) != 0) {
     data <- data[, X_names]
   }
   X <- data[, -which(colnames(data) == y_name)]

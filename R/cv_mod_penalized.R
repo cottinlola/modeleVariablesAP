@@ -11,7 +11,7 @@
 #'                              error (min + 1se)
 #' @param n_folds An integer giving the number of folds tu use in k-folds cv
 #' @param type_measure  A character naming the error metric used for the
-#'                      cross-validation (defaults to "rmse")
+#'                      cross-validation (defaults to "mse")
 #'
 #' @return The fitted model
 #'

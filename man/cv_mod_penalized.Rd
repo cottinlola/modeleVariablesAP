@@ -12,7 +12,7 @@ cv_mod_penalized(
   alpha = seq(0, 1, by = 0.2),
   cv_strat = "min",
   n_folds = 10,
-  type_measure = "rmse"
+  type_measure = "mse"
 )
 }
 \arguments{
@@ -32,7 +32,7 @@ cv_mod_penalized(
 \item{n_folds}{An integer giving the number of folds tu use in k-folds cv}
 
 \item{type_measure}{A character naming the error metric used for the
-cross-validation (defaults to "rmse")}
+cross-validation (defaults to "mse")}
 }
 \value{
 The fitted model
