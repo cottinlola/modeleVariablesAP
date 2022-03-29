@@ -31,7 +31,7 @@ mod_lineaire <- function(data, X_names, y_name) {
 mod_lineaires <- function(data_train, data_test, X_names, y_name,
                           metric = "rmse", below_cutoff = 5) {
   X_names <- setdiff(X_names, y_name)
-  res <- lapply(, function (X_name) {
+  res <- lapply(X_names, function (X_name) {
     m <- mod_lineaire(data_train, X_name, y_name)
     return(mod_performance(m, data_test, y_name, metric, below_cutoff))
   })
