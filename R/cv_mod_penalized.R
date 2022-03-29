@@ -64,7 +64,7 @@ cv_mod_penalized <- function(data, X_names = character(), y_name,
 #'
 folds_err <- function(data, X_names, y_name, alpha, cv_strat, n_folds,
                       type_measure, folds_id) {
-  alpha_err <- lapply(1:n_folds, function(fid)
+  alpha_err <- sapply(1:n_folds, function(fid)
       fold_err(data, X_names, y_name, alpha, cv_strat, type_measure,
                folds_id, fid))
   # returns error mean and sd over the folds
@@ -103,8 +103,7 @@ fold_err <- function(data, X_names, y_name, alpha, cv_strat,
   # select variables' names for a given lambda
   lambda_idx <- which(mod_en$lambda == mod_en[[paste("lambda", cv_strat,
                                                      sep = ".")]])
-  vars_idx <- which(mod_en$beta[, lambda_idx] > 0)
-  vars_names <- mod_en$beta@Dimnames[[1]][vars_idx]
+  vars_names <- names(which(mod_en$beta[, lambda_idx] > 0))
   # fit linear model restricted to the selected variables
   mod_lm <- lm(as.formula(paste0(y_name, " ~ ",
                                  paste0(vars_names, collapse = " + "))),
