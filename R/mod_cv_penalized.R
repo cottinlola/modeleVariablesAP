@@ -34,8 +34,9 @@ mod_cv_penalized <- function(data, x_names = character(), y_name,
   # retrieves the alpha minimizing the error
   alpha_min <- max(alpha[which(err$mean == min(err$mean))])
   # retrieves the greatest alpha keeping the error "close" to its minimum
-  alpha_1se <- max(alpha[which(err$mean <= err$mean[[alpha_min]] +
-    err$sd[[alpha_min]])])
+  alpha_1se <- max(alpha[which(err$mean <=
+                                 err[as.character(alpha_min), "mean"] +
+                                   err[as.character(alpha_min), "sd"])])
   alpha_opt <- if (cv_strat == "min") alpha_min else alpha_1se
   # fitting the final penalized model using the "optimal" alpha
   mod_full <- mod_penalized(data, x_names, y_name, alpha_opt, type_measure)
