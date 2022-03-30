@@ -1,7 +1,7 @@
 #' Entraine et retourne un modèle linéaire
 #'
 #' @param data le jeu de données
-#' @param X_names les noms des variables explicatives
+#' @param x_names les noms des variables explicatives
 #' @param y_name le nom de la variable à expliquer
 #' @return le modèle entrainé
 #'
@@ -9,16 +9,16 @@
 #'
 #' @examples
 #' mod_lineaire(data, "RESCO", c("MACHINE.IND", "MILEX"))
-mod_lineaire <- function(data, X_names, y_name) {
+mod_lineaire <- function(data, x_names, y_name) {
   return(lm(as.formula(paste0(y_name, " ~ ",
-                              paste0(X_names, collapse = " + "))), data = data))
+                              paste0(x_names, collapse = " + "))), data = data))
 }
 
 #' Applique des modèles linéaires simples et en retourne un résumé
 #'
 #' @param data_train le jeu de données d'entrainement
 #' @param data_test le jeu de données de test
-#' @param X_names les noms des variables explicatives
+#' @param x_names les noms des variables explicatives
 #' @param y_name le nom de la variable à expliquer
 #' @param metric metrique d'erreur
 #' @param below_cutoff seuil à dépasser
@@ -28,15 +28,15 @@ mod_lineaire <- function(data, X_names, y_name) {
 #'
 #' @examples
 #' mod_lineaires(data_train, data_test, "RESCO", c("MACHINE.IND", "MILEX"))
-mod_lineaires <- function(data_train, data_test, X_names, y_name,
+mod_lineaires <- function(data_train, data_test, x_names, y_name,
                           metric = "rmse", below_cutoff = 5) {
-  X_names <- setdiff(X_names, y_name)
-  res <- lapply(X_names, function (X_name) {
-    m <- mod_lineaire(data_train, X_name, y_name)
+  x_names <- setdiff(x_names, y_name)
+  res <- lapply(x_names, function(x_name) {
+    m <- mod_lineaire(data_train, x_name, y_name)
     return(model_performance(m, data_test, y_name, metric, below_cutoff))
   })
   res <- do.call(rbind, res)
-  rownames(res) <- X_names
+  rownames(res) <- x_names
   return(res)
 }
 
@@ -44,7 +44,7 @@ mod_lineaires <- function(data_train, data_test, X_names, y_name,
 #' explicatives dont le modèle donne un R² supérieur à un seuil (défaut 70%)
 #'
 #' @param data le jeu de données
-#' @param X_names les noms des variables explicatives
+#' @param x_names les noms des variables explicatives
 #' @param y_name le nom de la variable à expliquer
 #' @param cutoff seuil à dépasser
 #' @return vecteur :    nom des variables explicatives pour lesquelles le modèle
@@ -54,11 +54,11 @@ mod_lineaires <- function(data_train, data_test, X_names, y_name,
 #'
 #' @examples
 #' mod_lineaires_best_var(data, "RESCO", c("MACHINE.IND", "MILEX"))
-mod_lineaires_best_var <- function(data, X_names, y_name, cutoff = .7) {
-  X_names <- setdiff(X_names, y_name)
-  r.squared <- sapply(X_names, function (X_name) {
-    m <- mod_lineaire(data, X_name, y_name)
+mod_lineaires_best_var <- function(data, x_names, y_name, cutoff = .7) {
+  x_names <- setdiff(x_names, y_name)
+  r_squared <- sapply(x_names, function(x_name) {
+    m <- mod_lineaire(data, x_name, y_name)
     return(summary(m)$r.squared)
   })
-  return(X_names[r.squared >= cutoff])
+  return(x_names[r_squared >= cutoff])
 }

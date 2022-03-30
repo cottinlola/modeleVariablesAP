@@ -20,7 +20,7 @@
 #' @example
 #' mod <- cv_mod_penalized(data, y_name = "SUBEX")
 #'
-cv_mod_penalized <- function(data, X_names = character(), y_name,
+cv_mod_penalized <- function(data, x_names = character(), y_name,
                              alpha = seq(0, 1, by = .2), cv_strat = "min",
                              n_folds = 10, type_measure = "mse") {
   # assign every observation to a fold
@@ -38,7 +38,7 @@ cv_mod_penalized <- function(data, X_names = character(), y_name,
     err$sd[[alpha_min]])])
   alpha_opt <- if (cv_strat == "min") alpha_min else alpha_1se
   # fitting the final penalized model using the "optimal" alpha
-  mod_full <- mod_penalized(data, X_names, y_name, alpha_opt, type_measure)
+  mod_full <- mod_penalized(data, x_names, y_name, alpha_opt, type_measure)
   mod_full$alpha <- alpha_opt
   return(mod_full)
 }
@@ -63,7 +63,7 @@ cv_mod_penalized <- function(data, X_names = character(), y_name,
 #'
 #' @noRd
 #'
-folds_err <- function(data, X_names, y_name, alpha, cv_strat, n_folds,
+folds_err <- function(data, x_names, y_name, alpha, cv_strat, n_folds,
                       type_measure, folds_id) {
   alpha_err <- sapply(1:n_folds, function(fid)
       fold_err(data, X_names, y_name, alpha, cv_strat, type_measure,
@@ -91,7 +91,7 @@ folds_err <- function(data, X_names, y_name, alpha, cv_strat, n_folds,
 #'
 #' @noRd
 #'
-fold_err <- function(data, X_names, y_name, alpha, cv_strat,
+fold_err <- function(data, x_names, y_name, alpha, cv_strat,
                      type_measure, folds_id, fid) {
   whichs <- folds_id == fid
   # restrict training data to observations not assigned to the fold fid
