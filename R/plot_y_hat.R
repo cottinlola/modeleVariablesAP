@@ -9,7 +9,7 @@
 #' @export
 #'
 #' @examples
-#'
+#'plot_y_hat(mod_en, data_test, "SUBEX")
 
 plot_y_hat <- function(model, data_test, y_name) {
     df <- data.frame(y = data_test[, y_name],

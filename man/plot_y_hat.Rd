@@ -20,5 +20,5 @@ plot : le graphique y^ en fonction de y
 Graphique y^ en fonction de y
 }
 \examples{
-
+plot_y_hat(mod_en, data_test, "SUBEX")
 }
