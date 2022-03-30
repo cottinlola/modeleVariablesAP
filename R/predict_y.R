@@ -19,7 +19,7 @@ predict_y <- function(model, data_test, allow_new_levels = T) {
     if (mymod %in% c("lm", "lmerMod")) {
         #Modèles linéaires simples/multiples, stepwise ou mixtes
         y_hat <- predict(model, newdata = data_test,
-                         allow_new_levels = allow_new_levels)
+                         allow.new.levels = allow_new_levels)
     } else if (mymod %in% c("elnet", "cv.glmnet", "glmnet")) {
         #Modèles pénalisés
         vars <- setdiff(rownames(coef(model)), "(Intercept)")
