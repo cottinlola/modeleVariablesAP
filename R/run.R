@@ -16,7 +16,7 @@
 #' @param metric A character: the metric to use for error computation
 #' @param below_cutoff A numeric: seuil à dépasser
 #'
-#' @return
+#' @return A list of both models and their performances
 #'
 #' @export
 #'

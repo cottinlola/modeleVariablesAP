@@ -50,7 +50,7 @@ be ignored}
 \item{data_trian}{A data.frame: the training dataset}
 }
 \value{
-
+A list of both models and their performances
 }
 \description{
 Main function
