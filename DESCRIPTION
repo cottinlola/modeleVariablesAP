@@ -15,5 +15,6 @@ Imports:
     MASS,
     lme4,
     stringr,
-    mvoutlier
+    mvoutlier,
+    car
 RoxygenNote: 7.1.2
