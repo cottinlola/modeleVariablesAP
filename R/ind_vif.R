@@ -12,7 +12,7 @@
 #' vif(modele_lineaire, graph = TRUE)
 
 ind_vif <- function(mod, graph = FALSE){
-  car::vif_values <- vif(mod)
+  vif_values <- car::vif(mod)
   if (graph == TRUE){
     barplot(vif_values, main = "VIF Values", horiz = TRUE, col = "steelblue")
     return(abline(v = 5, lwd = 3, lty = 2))
