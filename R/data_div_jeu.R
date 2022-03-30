@@ -10,7 +10,7 @@
 #' div_jeu(data)
 #' div_jeu(data, 0.7)
 div_jeu <- function(data, pct_train = 0.9) {
-    idx_train <- sample(nrow(data), round(nrow(data) * 0.9))
+    idx_train <- sample(nrow(data), round(nrow(data) * pct_train))
     data_train <- data[idx_train, ]
     data_test <- data[-idx_train, ]
     data_div <- list(train = data_train, test = data_test)

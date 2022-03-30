@@ -4,12 +4,12 @@
 \alias{plot_y_x}
 \title{Plot y ~ x}
 \usage{
-plot_y_x(data, X_names, y_name)
+plot_y_x(data, x_names, y_name)
 }
 \arguments{
 \item{data}{le jeu de données}
 
-\item{X_names}{les noms des variables explicatives}
+\item{x_names}{les noms des variables explicatives}
 
 \item{y_name}{le nom de la variable à expliquer}
 }
