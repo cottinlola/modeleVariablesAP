@@ -14,7 +14,8 @@ supp_outliers(data, custom_cutoff = NULL, graph = FALSE)
 \item{graph}{pour représenter les points (TRUE ou FALSE)}
 }
 \value{
-dataframe ou plot : le jeu de données sans les outliers ou la représentation graphique
+dataframe ou plot : le jeu de données sans
+        les outliers ou la représentation graphique
 }
 \description{
 Suppression des outliers

@@ -8,6 +8,7 @@
 #' @return numeric ou plot : retourne les valeurs du VIF
 #'          pour chaque variable explicative ou le graphique
 #'
+#' @import ggplot2
 #' @export
 #'
 #' @examples
@@ -17,9 +18,9 @@ ind_vif <- function(mod, graph = FALSE) {
   vif_values <- car::vif(mod)
   if (graph == TRUE) {
     df <- data.frame(var_names = names(vif_values), value = vif_values)
-    p <- ggplot2::ggplot(df, aes(y = var_names, x = value)) +
-    ggplot2::geom_bar(stat = "identity", fill = "steelblue") +
-    ggplot2::theme_minimal() + ggplot2::labs(y = "", x = "VIF values")
+    p <- ggplot(df, aes(y = var_names, x = value)) +
+    geom_bar(stat = "identity", fill = "steelblue") +
+    theme_minimal() + labs(y = "", x = "VIF values")
     return(p)
   }
   return(vif_values)

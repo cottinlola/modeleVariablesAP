@@ -5,6 +5,8 @@
 #' @param y_name le nom de la variable à expliquer
 #' @return le modèle entrainé
 #'
+#' @importFrom stats as.formula lm coef median predict quantile sd
+#' @importFrom graphics abline
 #' @export
 #'
 #' @examples

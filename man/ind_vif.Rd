@@ -4,7 +4,8 @@
 \alias{ind_vif}
 \title{Calcul du VIF (pour étudier la multi-colinéarité) et graphique
 Si VIF proche de 1 : modèle + robuste
-car les facteurs ne sont pas influencés par la corrélation avec d'autres facteurs}
+car les facteurs ne sont pas influencés par
+la corrélation avec d'autres facteurs}
 \usage{
 ind_vif(mod, graph = FALSE)
 }
@@ -14,12 +15,14 @@ ind_vif(mod, graph = FALSE)
 \item{graph}{un bouléen TRUE pour tracer le graphique du VIF ou FALSE sinon}
 }
 \value{
-numeric ou plot : retourne les valeurs du VIF pour chaque variable explicative ou le graphique
+numeric ou plot : retourne les valeurs du VIF
+         pour chaque variable explicative ou le graphique
 }
 \description{
 Calcul du VIF (pour étudier la multi-colinéarité) et graphique
 Si VIF proche de 1 : modèle + robuste
-car les facteurs ne sont pas influencés par la corrélation avec d'autres facteurs
+car les facteurs ne sont pas influencés par
+la corrélation avec d'autres facteurs
 }
 \examples{
 vif(modele_lineaire, graph = TRUE)

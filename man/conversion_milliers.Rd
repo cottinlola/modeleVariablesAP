@@ -10,7 +10,8 @@ conversion_milliers(data)
 \item{data}{le jeu de données}
 }
 \value{
-dataframe : le jeu de données avec les données converties en milliers d'euros
+dataframe : le jeu de données avec les
+         données converties en milliers d'euros
 }
 \description{
 Conversion en milliers d'euros
