@@ -28,3 +28,7 @@ export(rmse)
 export(run)
 export(selection_fermes)
 export(supp_outliers)
+
+importFrom("graphics", "abline", "barplot")
+importFrom("stats", "as.formula", "coef", "lm", "median", "predict",
+               "quantile", "sd")

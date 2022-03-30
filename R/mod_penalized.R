@@ -14,21 +14,21 @@
 #' @export
 #'
 #' @example
-#' mod <- mod_penalized(data, y_name = "SUBEX")
+#' mod <- mod_penalized(data, y_name = "SUBEx")
 #'
 mod_penalized <- function(data, x_names = character(), y_name,
                           alpha = 1, type_measure = "mse") {
   if (length(x_names) != 0) {
     data <- data[, x_names]
   }
-  X <- data[, -which(colnames(data) == y_name)]
+  x <- data[, -which(colnames(data) == y_name)]
   y <- data[, y_name]
-  mod_en <- glmnet::cv.glmnet(x = as.matrix(X), y = y, alpha = alpha,
+  mod_en <- glmnet::cv.glmnet(x = as.matrix(x), y = y, alpha = alpha,
                               type.measure = type_measure)
   mod_en$glmnet.fit$cvm <- mod_en$cvm
   mod_en$glmnet.fit$nzero <- mod_en$nzero
-  mod_en$glmnet.fit$lambda.min <- mod_en$lambda.min
-  mod_en$glmnet.fit$lambda.1se <- mod_en$lambda.1se
+  mod_en$glmnet.fit$lambda.min <- mod_en$lambda.min # nolint
+  mod_en$glmnet.fit$lambda.1se <- mod_en$lambda.1se # nolint
   return(mod_en$glmnet.fit)
 }
 

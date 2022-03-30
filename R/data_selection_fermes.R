@@ -5,7 +5,7 @@
 #' @return dataframe : le jeu de données avec les fermes présentes
 #'
 #' @export
-#' 
+#'
 #' @examples
 #' selection_fermes(data_ind)
 

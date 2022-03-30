@@ -11,7 +11,7 @@
 #' plot_y_x(data, "RESCO", c("MACHINE.IND", "MILEX"))
 plot_y_x <- function(data, x_names, y_name) {
   if (length(x_names) > 1) {
-    res <- sapply(x_names, function (x_name) plot_y_x(data, x_name, y_name))
+    res <- sapply(x_names, function(x_name) plot_y_x(data, x_name, y_name))
   } else {
     res <- plot(as.formula(paste0(y_name, " ~ ",
                                   paste0(x_names, collapse = " + "))),
