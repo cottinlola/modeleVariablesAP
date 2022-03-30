@@ -68,7 +68,8 @@ run <- function(data = NULL, conv_mil = FALSE, n_min_years = 5,
               mod_en_mxt, mod_step_mxt)
   names(models) <- c(names(mods_uni_lm), "all_lm", "en_lm", "step_lm",
                      "all_mxt", "en_mxt", "step_mxt")
-  models_perf <- models_performance(models, data_test, y_name, metric,
-                                    below_cutoff)
+  models_perf <- models_performance(models = models, data_test = data_test,
+                                    y_name = y_name, metric = metric,
+                                    below_cutoff = below_cutoff)
   return(list(models = models, perf = models_perf))
 }
