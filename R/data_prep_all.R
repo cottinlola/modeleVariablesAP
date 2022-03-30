@@ -8,6 +8,8 @@
 #'                      should appeared in the data to be selected
 #' @param outliers_custom_cutoff Threshold to identified outliers
 #' @param split_pct_train Ratio between train and test data
+#' @param remove_non_num    A logicial indicating if non numeric columns should
+#'                          be ignored
 #'
 #' @return A list of data.frame: train and test sets
 #'
@@ -18,12 +20,15 @@
 #'
 data_prep_all <- function(data, conv_mil = FALSE, n_min_years = 5,
                           outliers_custom_cutoff = NULL,
-                          split_pct_train = 0.9) {
+                          split_pct_train = 0.9, remove_non_num = TRUE) {
   if (conv_mil) {
     data <- conversion_milliers(data)
   }
   data <- selection_fermes(data, n_min_years)
   data <- supp_outliers(data, outliers_custom_cutoff)
   data <- div_jeu(data, split_pct_train)
+  if (remove_non_num) {
+    data <- data[, unlist(lapply(data, is.numeric))]
+  }
   return(data)
 }
