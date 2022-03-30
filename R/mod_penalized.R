@@ -18,14 +18,15 @@
 #'
 mod_penalized <- function(data, x_names = character(), y_name,
                           alpha = 1, type_measure = "mse") {
+  x <- data
+  y <- data[, y_name]
   if (length(x_names) != 0) {
-    data <- data[, x_names]
+    x <- x[, x_names]
   }
-  if (y_name %in% colnames(data)) {
-    data <- data[, -which(colnames(data) == y_name)]
+  if (y_name %in% colnames(x)) {
+    x <- x[, -which(colnames(x) == y_name)]
   }
-  mod_en <- glmnet::cv.glmnet(x = as.matrix(data), y = data[, y_name],
-                                            alpha = alpha,
+  mod_en <- glmnet::cv.glmnet(x = as.matrix(x), y = y, alpha = alpha,
                               type.measure = type_measure)
   mod_en$glmnet.fit$cvm <- mod_en$cvm
   mod_en$glmnet.fit$nzero <- mod_en$nzero
