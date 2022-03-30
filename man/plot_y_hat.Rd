@@ -4,12 +4,14 @@
 \alias{plot_y_hat}
 \title{Graphique y^ en fonction de y}
 \usage{
-plot_y_hat(actual, predicted)
+plot_y_hat(model, data_test, y_name)
 }
 \arguments{
-\item{actual}{le vecteur des "vraies" valeurs}
+\item{model}{modèle}
 
-\item{predicted}{le vecteur des valeurs estimées}
+\item{data_test}{données à estimer}
+
+\item{y_name}{nom de la variable à expliquer du modèle}
 }
 \value{
 plot : le graphique y^ en fonction de y

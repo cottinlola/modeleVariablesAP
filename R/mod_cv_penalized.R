@@ -20,7 +20,7 @@
 #' @example
 #' mod <- cv_mod_penalized(data, y_name = "SUBEX")
 #'
-cv_mod_penalized <- function(data, X_names = character(), y_name,
+mod_cv_penalized <- function(data, X_names = character(), y_name,
                              alpha = seq(0, 1, by = .2), cv_strat = "min",
                              n_folds = 10, type_measure = "mse") {
   # assign every observation to a fold
