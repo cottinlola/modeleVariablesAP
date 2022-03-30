@@ -64,8 +64,8 @@ run <- function(data = NULL, conv_mil = FALSE, n_min_years = 5,
   mod_step_mxt <- mod_mixtes(data_train, y_name, "(MILEX | IDNUM)",
                              x_step)
 
-  models <- c(mods_uni_lm, mod_all_lm, mod_en_lm, mod_step_lm, mod_all_mxt,
-              mod_en_mxt, mod_step_mxt)
+  models <- c(mods_uni_lm, list(mod_all_lm), list(mod_en_lm), list(mod_step_lm),
+              list(mod_all_mxt), list(mod_en_mxt), list(mod_step_mxt))
   names(models) <- c(names(mods_uni_lm), "all_lm", "en_lm", "step_lm",
                      "all_mxt", "en_mxt", "step_mxt")
   models_perf <- models_performance(models = models, data_test = data_test,
