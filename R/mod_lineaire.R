@@ -33,7 +33,7 @@ mod_uni_lineaires <- function(data_train, x_names, y_name) {
   mods <- lapply(x_names, function(x_name) {
     return(mod_lineaire(data_train, x_name, y_name))
   })
-  rownames(mods) <- x_names
+  names(mods) <- x_names
   return(mods)
 }
 
