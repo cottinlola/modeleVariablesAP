@@ -93,7 +93,7 @@ get_metric_fun <- function(metric) {
 #'
 #' @examples
 #' error(actual = c(35, 36), predicted = c(36, 34), metric = "rmse")
-error <- function (actual, predicted, metric = "rmse") {
+error <- function(actual, predicted, metric = "rmse") {
   err_fun <- get_metric_fun(metric)
   return(err_fun(actual, predicted))
 }

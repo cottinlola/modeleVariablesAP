@@ -3,15 +3,17 @@
 #' @param data le jeu de données
 #' @param custom_cutoff permet de spécifier un cutoff arbitraire
 #' @param graph pour représenter les points (TRUE ou FALSE)
-#' @return dataframe ou plot : le jeu de données sans les outliers ou la représentation graphique
+#' @return dataframe ou plot : le jeu de données sans
+#'         les outliers ou la représentation graphique
 #'
 #' @export
 #'
 #' @examples
 #' supp_outliers(data_ind_5y, graph = TRUE)
 
-supp_outliers <- function(data, custom_cutoff = NULL, graph = FALSE){
-  var_num <- setdiff(names(which(sapply(data, is.numeric))), c("IDNUM", "MILEX"))
+supp_outliers <- function(data, custom_cutoff = NULL, graph = FALSE) {
+  var_num <- setdiff(names(which(sapply(data, is.numeric))),
+              c("IDNUM", "MILEX"))
   data_num <- data[, var_num]
   # 0n garde uniquement les variables avec suffisamment de variabilité
   t <- sapply(data_num, function(c) {
