@@ -7,7 +7,7 @@ alpha and lambda hyperparameters}
 \usage{
 cv_mod_penalized(
   data,
-  X_names = character(),
+  x_names = character(),
   y_name,
   alpha = seq(0, 1, by = 0.2),
   cv_strat = "min",
@@ -17,8 +17,6 @@ cv_mod_penalized(
 }
 \arguments{
 \item{data}{A numeric dataset in matrix-convertible format}
-
-\item{X_names}{A character vector of explainatory variables names}
 
 \item{y_name}{A character naming the variable to explain}
 
@@ -33,6 +31,8 @@ cv_mod_penalized(
 
 \item{type_measure}{A character naming the error metric used for the
 cross-validation (defaults to "mse")}
+
+\item{X_names}{A character vector of explainatory variables names}
 }
 \value{
 The fitted model
