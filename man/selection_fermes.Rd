@@ -4,10 +4,10 @@
 \alias{selection_fermes}
 \title{Sélection des fermes présentes au moins X ans (par défaut 5 ans)}
 \usage{
-selection_fermes(data_ind, nb_annees = 5)
+selection_fermes(data, nb_annees = 5)
 }
 \arguments{
-\item{data_ind}{le jeu de données (avec la variable IDNUM)}
+\item{data}{le jeu de données (avec la variable IDNUM)}
 
 \item{nb_annees}{le nom de la variable à expliquer}
 }
