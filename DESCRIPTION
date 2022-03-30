@@ -15,5 +15,8 @@ Imports:
     MASS,
     lme4,
     stringr,
-    mvoutlier
+    mvoutlier,
+    ggplot2,
+    ggthemes,
+    gridExtra
 RoxygenNote: 7.1.2
