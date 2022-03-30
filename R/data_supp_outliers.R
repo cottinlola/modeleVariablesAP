@@ -25,7 +25,9 @@ supp_outliers <- function(data, custom_cutoff = NULL, graph = FALSE) {
   outliers <- mvoutlier::sign1(as.matrix(data_num))
   cut_off <- custom_cutoff
   if (is.null(cut_off)) {
-    cut_off <- quantile(outliers$x.dist, .75) + 3 * iq
+    q3 <- quantile(outliers$x.dist, .75)
+    q1 <- quantile(outliers$x.dist, .25)
+    cut_off <- q3 + 3 * (q3 - q1)
   }
   data_no_outliers <- data[which(outliers$x.dist <= cut_off), ]
   # plot outliers
