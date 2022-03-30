@@ -36,8 +36,11 @@ model_performance <- function(model, data_test, y_name, metric, below_cutoff) {
 #' @examples
 #' models_performance(models, names, data_test, "RESCO",
 #'                    c("MACHINE.IND", "MILEX"))
-models_performance <- function(models, names, data_test, y_name, metric,
+models_performance <- function(models, names = NULL, data_test, y_name, metric,
                                below_cutoff) {
+  if (is.null(names)) {
+    names <- names(models)
+  }
   dfs <- lapply(models, function(model) model_performance(model, data_test,
                                                           y_name, metric,
                                                           below_cutoff))

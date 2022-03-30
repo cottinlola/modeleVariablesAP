@@ -13,6 +13,8 @@
 #' @param x_names A character vector: explainatory variables
 #' @param x_exclude A character vector: explainatory variables to exclude
 #' @param y_name A character: the variable to explain
+#' @param metric A character: the metric to use for error computation
+#' @param below_cutoff A numeric: seuil à dépasser
 #'
 #' @return
 #'
@@ -28,7 +30,8 @@ run <- function(data = NULL, conv_mil = FALSE, n_min_years = 5,
                 outliers_custom_cutoff = NULL, split_pct_train = 0.9,
                 remove_non_num = TRUE,
                 data_train = NULL, data_test = NULL,
-                x_names = NULL, x_exclude = NULL, y_name) {
+                x_names = NULL, x_exclude = NULL, y_name,
+                metric = "rmse", below_cutoff = 5) {
   if (is.null(data_train) | is.null(data_test)) {
     datasets <- data_prep_all(data, conv_mil, n_min_years,
                               outliers_custom_cutoff, split_pct_train,
@@ -41,5 +44,31 @@ run <- function(data = NULL, conv_mil = FALSE, n_min_years = 5,
   }
   x_names <- setdiff(x_names, c(x_exclude, c("IDNUM", "MILEX"), y_name))
 
-  # TODO: add models, etc...
+  # Linear
+  # Univariate
+  mods_uni_lm <- mod_uni_lineaires(data_train, x_names, y_name)
+  # Multivariate
+  mod_all_lm <- mod_lineaire(data_train, x_names, y_name)
+  # EN
+  mod_en <- mod_cv_penalized(data_train, x_names, y_name)
+  x_en <- mod_penalized_select_variables(mod_en)
+  mod_en_lm <- mod_lineaire(data_train, x_en, y_name)
+  # Stepwise
+  mod_step_lm <- mod_stepwise(data_train, x_names, y_name)
+  x_step <- setdiff(rownames(coef(mod_step_lm)), "(Intercept)")
+
+  # Mixte
+  mod_all_mxt <- mod_mixtes(data_train, y_name, "(MILEX | IDNUM)",
+                            x_names)
+  mod_en_mxt <- mod_mixtes(data_train, y_name, "(MILEX | IDNUM)", x_en)
+  mod_step_mxt <- mod_mixtes(data_train, y_name, "(MILEX | IDNUM)",
+                             x_step)
+
+  models <- c(mods_uni_lm, mod_all_lm, mod_en_lm, mod_step_lm, mod_all_mxt,
+              mod_en_mxt, mod_step_mxt)
+  names(models) <- c(names(mods_uni_lm), "all_lm", "en_lm", "step_lm",
+                     "all_mxt", "en_mxt", "step_mxt")
+  models_perf <- models_performance(models, data_test, y_name, metric,
+                                    below_cutoff)
+  return(list(models = models, perf = models_perf))
 }

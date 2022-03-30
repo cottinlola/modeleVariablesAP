@@ -4,7 +4,14 @@
 \alias{models_performance}
 \title{Returns a basic summary of models' performances}
 \usage{
-models_performance(models, names, data_test, y_name, metric, below_cutoff)
+models_performance(
+  models,
+  names = NULL,
+  data_test,
+  y_name,
+  metric,
+  below_cutoff
+)
 }
 \arguments{
 \item{models}{The models to evaluate}

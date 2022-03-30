@@ -15,7 +15,9 @@ run(
   data_test = NULL,
   x_names = NULL,
   x_exclude = NULL,
-  y_name
+  y_name,
+  metric = "rmse",
+  below_cutoff = 5
 )
 }
 \arguments{
@@ -40,6 +42,10 @@ be ignored}
 \item{x_exclude}{A character vector: explainatory variables to exclude}
 
 \item{y_name}{A character: the variable to explain}
+
+\item{metric}{A character: the metric to use for error computation}
+
+\item{below_cutoff}{A numeric: seuil à dépasser}
 
 \item{data_trian}{A data.frame: the training dataset}
 }

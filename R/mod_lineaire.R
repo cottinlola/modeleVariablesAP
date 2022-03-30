@@ -10,34 +10,29 @@
 #' @examples
 #' mod_lineaire(data, "RESCO", c("MACHINE.IND", "MILEX"))
 mod_lineaire <- function(data, x_names, y_name) {
+  x_names <- setdiff(x_names, y_name)
   return(lm(as.formula(paste0(y_name, " ~ ",
                               paste0(x_names, collapse = " + "))), data = data))
 }
 
-#' Applique des modèles linéaires simples et en retourne un résumé
+#' Entraine des modèles linéaires simples et les retourne
 #'
 #' @param data_train le jeu de données d'entrainement
-#' @param data_test le jeu de données de test
 #' @param x_names les noms des variables explicatives
 #' @param y_name le nom de la variable à expliquer
-#' @param metric metrique d'erreur
-#' @param below_cutoff seuil à dépasser
-#' @return data.frame (r2 et erreurs)
+#' @return liste de modèles
 #'
 #' @export
 #'
 #' @examples
-#' mod_lineaires(data_train, data_test, "RESCO", c("MACHINE.IND", "MILEX"))
-mod_lineaires <- function(data_train, data_test, x_names, y_name,
-                          metric = "rmse", below_cutoff = 5) {
+#' mod_uni_lineaires(data_train, "RESCO", c("MACHINE.IND", "MILEX"))
+mod_uni_lineaires <- function(data_train, x_names, y_name) {
   x_names <- setdiff(x_names, y_name)
-  res <- lapply(x_names, function(x_name) {
-    m <- mod_lineaire(data_train, x_name, y_name)
-    return(model_performance(m, data_test, y_name, metric, below_cutoff))
+  mods <- lapply(x_names, function(x_name) {
+    return(mod_lineaire(data_train, x_name, y_name))
   })
-  res <- do.call(rbind, res)
-  rownames(res) <- x_names
-  return(res)
+  rownames(mods) <- x_names
+  return(mods)
 }
 
 #' Applique des modèles linéaires simples et renvoie le nom des variables

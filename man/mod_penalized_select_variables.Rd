@@ -4,12 +4,12 @@
 \alias{mod_penalized_select_variables}
 \title{Returns the variables' names of non zero betas of an EN fitted model}
 \usage{
-mod_penalized_select_variables(mod_en, lambda)
+mod_penalized_select_variables(mod_en, lambda = NULL)
 }
 \arguments{
 \item{mod_en}{A fitted EN model}
 
-\item{lambda}{A numeric corresponding to the regularization index desired}
+\item{lambda}{A numeric corresponding to the desired regularization index}
 }
 \value{
 A character vector of selected variables' names
