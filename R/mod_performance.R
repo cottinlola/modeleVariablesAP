@@ -12,9 +12,9 @@
 #' @examples
 #' model_performance(model, data_test, "RESCO", c("MACHINE.IND", "MILEX"))
 model_performance <- function(model, data_test, y_name, metric, below_cutoff) {
-  r.squared <- summary(model)$r.squared
+  r_squared <- summary(model)$r.squared
   err <- model_error(model, data_test, y_name, metric, below_cutoff)
-  df <- data.frame(r = round(r.squared, digits = 2), err = err$error,
+  df <- data.frame(r = round(r_squared, digits = 2), err = err$error,
                    below_error = paste0(formatC(err$below_error, digits = 2,
                                                 format = "f"), "%"))
   colnames(df) <- c("R2", metric, paste0("mape<=", below_cutoff, "%"))

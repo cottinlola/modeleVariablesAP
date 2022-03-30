@@ -2,7 +2,7 @@
 #' lambda hyperparameter
 #'
 #' @param data A numeric dataset in matrix-convertible format
-#' @param X_names A character vector of explainatory variables names
+#' @param x_names A character vector of explainatory variables names
 #' @param y_name A character naming the variable to explain
 #' @param alpha A numeric to compromise between ridge (alpha=0) and lasso
 #'              (alpha=1, default) penalization
@@ -16,10 +16,10 @@
 #' @example
 #' mod <- mod_penalized(data, y_name = "SUBEX")
 #'
-mod_penalized <- function(data, X_names = character(), y_name,
+mod_penalized <- function(data, x_names = character(), y_name,
                           alpha = 1, type_measure = "mse") {
-  if (length(X_names) != 0) {
-    data <- data[, X_names]
+  if (length(x_names) != 0) {
+    data <- data[, x_names]
   }
   X <- data[, -which(colnames(data) == y_name)]
   y <- data[, y_name]

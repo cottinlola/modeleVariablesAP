@@ -7,7 +7,7 @@
 mod_lineaires(
   data_train,
   data_test,
-  X_names,
+  x_names,
   y_name,
   metric = "rmse",
   below_cutoff = 5
@@ -18,7 +18,7 @@ mod_lineaires(
 
 \item{data_test}{le jeu de données de test}
 
-\item{X_names}{les noms des variables explicatives}
+\item{x_names}{les noms des variables explicatives}
 
 \item{y_name}{le nom de la variable à expliquer}
 

@@ -7,7 +7,7 @@ alpha and lambda hyperparameters}
 \usage{
 mod_cv_penalized(
   data,
-  X_names = character(),
+  x_names = character(),
   y_name,
   alpha = seq(0, 1, by = 0.2),
   cv_strat = "min",
@@ -18,7 +18,7 @@ mod_cv_penalized(
 \arguments{
 \item{data}{A numeric dataset in matrix-convertible format}
 
-\item{X_names}{A character vector of explainatory variables names}
+\item{x_names}{A character vector of explainatory variables names}
 
 \item{y_name}{A character naming the variable to explain}
 

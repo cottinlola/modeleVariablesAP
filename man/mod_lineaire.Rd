@@ -4,12 +4,12 @@
 \alias{mod_lineaire}
 \title{Entraine et retourne un modèle linéaire}
 \usage{
-mod_lineaire(data, X_names, y_name)
+mod_lineaire(data, x_names, y_name)
 }
 \arguments{
 \item{data}{le jeu de données}
 
-\item{X_names}{les noms des variables explicatives}
+\item{x_names}{les noms des variables explicatives}
 
 \item{y_name}{le nom de la variable à expliquer}
 }

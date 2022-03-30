@@ -5,12 +5,12 @@
 \title{Applique des modèles linéaires simples et renvoie le nom des variables
 explicatives dont le modèle donne un R² supérieur à un seuil (défaut 70%)}
 \usage{
-mod_lineaires_best_var(data, X_names, y_name, cutoff = 0.7)
+mod_lineaires_best_var(data, x_names, y_name, cutoff = 0.7)
 }
 \arguments{
 \item{data}{le jeu de données}
 
-\item{X_names}{les noms des variables explicatives}
+\item{x_names}{les noms des variables explicatives}
 
 \item{y_name}{le nom de la variable à expliquer}
 
