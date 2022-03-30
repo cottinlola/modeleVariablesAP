@@ -7,7 +7,7 @@ lambda hyperparameter}
 \usage{
 mod_penalized(
   data,
-  X_names = character(),
+  x_names = character(),
   y_name,
   alpha = 1,
   type_measure = "mse"
@@ -16,7 +16,7 @@ mod_penalized(
 \arguments{
 \item{data}{A numeric dataset in matrix-convertible format}
 
-\item{X_names}{A character vector of explainatory variables names}
+\item{x_names}{A character vector of explainatory variables names}
 
 \item{y_name}{A character naming the variable to explain}
 
