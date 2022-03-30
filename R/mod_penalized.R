@@ -21,9 +21,11 @@ mod_penalized <- function(data, x_names = character(), y_name,
   if (length(x_names) != 0) {
     data <- data[, x_names]
   }
-  x <- data[, -which(colnames(data) == y_name)]
-  y <- data[, y_name]
-  mod_en <- glmnet::cv.glmnet(x = as.matrix(x), y = y, alpha = alpha,
+  if (y_name %in% colnames(data)) {
+    data <- data[, -which(colnames(data) == y_name)]
+  }
+  mod_en <- glmnet::cv.glmnet(x = as.matrix(data), y = data[, y_name],
+                                            alpha = alpha,
                               type.measure = type_measure)
   mod_en$glmnet.fit$cvm <- mod_en$cvm
   mod_en$glmnet.fit$nzero <- mod_en$nzero
