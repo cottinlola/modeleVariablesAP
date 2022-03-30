@@ -1,4 +1,6 @@
-#' Calcul du VIF et graphique
+#' Calcul du VIF (pour étudier la multi-colinéarité) et graphique
+#' Si VIF proche de 1 : modèle + robuste
+#' car les facteurs ne sont pas influencés par la corrélation avec d'autres facteurs
 #'
 #' @param mod le modèle
 #' @param graph un bouléen TRUE pour tracer le graphique du VIF ou FALSE sinon
