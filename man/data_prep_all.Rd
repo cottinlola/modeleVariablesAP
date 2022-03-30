@@ -11,8 +11,8 @@ data_prep_all(
   conv_mil = FALSE,
   n_min_years = 5,
   outliers_custom_cutoff = NULL,
-  split_pct_train = 0.9,
-  remove_non_num = TRUE
+  remove_non_num = TRUE,
+  split_pct_train = 0.9
 )
 }
 \arguments{
@@ -25,10 +25,10 @@ should appeared in the data to be selected}
 
 \item{outliers_custom_cutoff}{Threshold to identified outliers}
 
-\item{split_pct_train}{Ratio between train and test data}
-
 \item{remove_non_num}{A logicial indicating if non numeric columns should
 be ignored}
+
+\item{split_pct_train}{Ratio between train and test data}
 }
 \value{
 A list of data.frame: train and test sets
