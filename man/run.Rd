@@ -18,7 +18,8 @@ run(
   effects = "(MILEX | IDNUM)",
   y_name,
   metric = "rmse",
-  below_cutoff = 5
+  below_cutoff = 5,
+  mod_compress = TRUE
 )
 }
 \arguments{

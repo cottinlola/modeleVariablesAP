@@ -33,7 +33,8 @@ run <- function(data = NULL, conv_mil = FALSE, n_min_years = 5,
                 data_train = NULL, data_test = NULL,
                 x_names = NULL, x_exclude = NULL, effects = "(MILEX | IDNUM)",
                 y_name,
-                metric = "rmse", below_cutoff = 5) {
+                metric = "rmse", below_cutoff = 5,
+                mod_compress = TRUE) {
   if (is.null(data_train) | is.null(data_test)) {
     datasets <- data_prep_all(data, conv_mil, n_min_years,
                               outliers_custom_cutoff, split_pct_train,
@@ -71,5 +72,10 @@ run <- function(data = NULL, conv_mil = FALSE, n_min_years = 5,
   models_perf <- models_performance(models = models, data_test = data_test,
                                     y_name = y_name, metric = metric,
                                     below_cutoff = below_cutoff)
+
+  if (mod_compress) {
+    models <- lapply(models, mod_compress)
+  }
+
   return(list(models = models, perf = models_perf))
 }
