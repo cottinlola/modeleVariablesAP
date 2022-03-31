@@ -15,6 +15,7 @@ run(
   data_test = NULL,
   x_names = NULL,
   x_exclude = NULL,
+  effects = "(MILEX | IDNUM)",
   y_name,
   metric = "rmse",
   below_cutoff = 5
@@ -40,6 +41,8 @@ be ignored}
 \item{x_names}{A character vector: explainatory variables}
 
 \item{x_exclude}{A character vector: explainatory variables to exclude}
+
+\item{effects}{A character of random effects to consider}
 
 \item{y_name}{A character: the variable to explain}
 

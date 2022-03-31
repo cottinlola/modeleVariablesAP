@@ -12,6 +12,7 @@
 #' @param data_test A data.frame: the testing dataset
 #' @param x_names A character vector: explainatory variables
 #' @param x_exclude A character vector: explainatory variables to exclude
+#' @param effects A character of random effects to consider
 #' @param y_name A character: the variable to explain
 #' @param metric A character: the metric to use for error computation
 #' @param below_cutoff A numeric: seuil à dépasser
@@ -30,7 +31,8 @@ run <- function(data = NULL, conv_mil = FALSE, n_min_years = 5,
                 outliers_custom_cutoff = NULL, split_pct_train = 0.9,
                 remove_non_num = TRUE,
                 data_train = NULL, data_test = NULL,
-                x_names = NULL, x_exclude = NULL, y_name,
+                x_names = NULL, x_exclude = NULL, effects = "(MILEX | IDNUM)",
+                y_name,
                 metric = "rmse", below_cutoff = 5) {
   if (is.null(data_train) | is.null(data_test)) {
     datasets <- data_prep_all(data, conv_mil, n_min_years,
@@ -58,11 +60,9 @@ run <- function(data = NULL, conv_mil = FALSE, n_min_years = 5,
   x_step <- setdiff(rownames(coef(mod_step_lm)), "(Intercept)")
 
   # Mixte
-  mod_all_mxt <- mod_mixtes(data_train, y_name, "(MILEX | IDNUM)",
-                            x_names)
-  mod_en_mxt <- mod_mixtes(data_train, y_name, "(MILEX | IDNUM)", x_en)
-  mod_step_mxt <- mod_mixtes(data_train, y_name, "(MILEX | IDNUM)",
-                             x_step)
+  mod_all_mxt <- mod_mixtes(data_train, y_name, effects, x_names)
+  mod_en_mxt <- mod_mixtes(data_train, y_name, effects, x_en)
+  mod_step_mxt <- mod_mixtes(data_train, y_name, effects, x_step)
 
   models <- c(mods_uni_lm, list(mod_all_lm), list(mod_en_lm), list(mod_step_lm),
               list(mod_all_mxt), list(mod_en_mxt), list(mod_step_mxt))
