@@ -19,7 +19,6 @@ run(
   y_name,
   metric = "rmse",
   below_cutoff = 5,
-  mod_compress = TRUE,
   traces = TRUE
 )
 }
@@ -51,9 +50,6 @@ be ignored}
 \item{metric}{A character: the metric to use for error computation}
 
 \item{below_cutoff}{A numeric: seuil à dépasser}
-
-\item{mod_compress}{A logical indicating if outputed models should be
-compressed}
 
 \item{traces}{A logical indicating if logs should be printed}
 

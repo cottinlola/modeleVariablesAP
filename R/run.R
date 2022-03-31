@@ -16,8 +16,6 @@
 #' @param y_name A character: the variable to explain
 #' @param metric A character: the metric to use for error computation
 #' @param below_cutoff A numeric: seuil à dépasser
-#' @param mod_compress  A logical indicating if outputed models should be
-#'                      compressed
 #' @param traces A logical indicating if logs should be printed
 #'
 #' @return A list of both models and their performances
@@ -37,7 +35,6 @@ run <- function(data = NULL, conv_mil = FALSE, n_min_years = 5,
                 x_names = NULL, x_exclude = NULL, effects = "(MILEX | IDNUM)",
                 y_name,
                 metric = "rmse", below_cutoff = 5,
-                mod_compress = TRUE,
                 traces = TRUE) {
   if (is.null(data_train) | is.null(data_test)) {
     datasets <- data_prep_all(data, conv_mil, n_min_years,
@@ -86,11 +83,6 @@ run <- function(data = NULL, conv_mil = FALSE, n_min_years = 5,
   models_perf <- models_performance(models = models, data_test = data_test,
                                     y_name = y_name, metric = metric,
                                     below_cutoff = below_cutoff)
-
-  if (mod_compress) {
-    if (traces) print("Compress")
-    models <- lapply(models, mod_compress)
-  }
 
   return(list(models = models, perf = models_perf))
 }
