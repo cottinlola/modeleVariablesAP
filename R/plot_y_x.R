@@ -9,7 +9,11 @@
 #'
 #' @examples
 #' plot_y_x(data, "RESCO", c("MACHINE.IND", "MILEX"))
-plot_y_x <- function(data, x_names, y_name) {
+plot_y_x <- function(data, x_names = NULL, y_name) {
+  if (is.null(x_names)) {
+    x_names <- setdiff(colnames(data), y_name)
+  }
+
   if (length(x_names) > 1) {
     res <- sapply(x_names, function(x_name) plot_y_x(data, x_name, y_name))
   } else {
