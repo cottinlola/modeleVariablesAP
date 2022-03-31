@@ -16,6 +16,9 @@
 #' @param y_name A character: the variable to explain
 #' @param metric A character: the metric to use for error computation
 #' @param below_cutoff A numeric: seuil à dépasser
+#' @param mod_compress  A logical indicating if outputed models should be
+#'                      compressed
+#' @param traces A logical indicating if logs should be printed
 #'
 #' @return A list of both models and their performances
 #'
@@ -34,7 +37,8 @@ run <- function(data = NULL, conv_mil = FALSE, n_min_years = 5,
                 x_names = NULL, x_exclude = NULL, effects = "(MILEX | IDNUM)",
                 y_name,
                 metric = "rmse", below_cutoff = 5,
-                mod_compress = TRUE) {
+                mod_compress = TRUE,
+                traces = TRUE) {
   if (is.null(data_train) | is.null(data_test)) {
     datasets <- data_prep_all(data, conv_mil, n_min_years,
                               outliers_custom_cutoff, split_pct_train,
@@ -48,32 +52,43 @@ run <- function(data = NULL, conv_mil = FALSE, n_min_years = 5,
   x_names <- setdiff(x_names, c(x_exclude, c("IDNUM", "MILEX"), y_name))
 
   # Linear
+  if (traces) print("Linear")
   # Univariate
+  if (traces) print("Univariate")
   mods_uni_lm <- mod_uni_lineaires(data_train, x_names, y_name)
   # Multivariate
+  if (traces) print("Multivariate")
   mod_all_lm <- mod_lineaire(data_train, x_names, y_name)
   # EN
+  if (traces) print("EN")
   mod_en <- mod_cv_penalized(data_train, x_names, y_name)
   x_en <- mod_penalized_select_variables(mod_en)
   mod_en_lm <- mod_lineaire(data_train, x_en, y_name)
   # Stepwise
+  if (traces) print("Stepwise")
   mod_step_lm <- mod_stepwise(data_train, x_names, y_name)
   x_step <- setdiff(rownames(coef(mod_step_lm)), "(Intercept)")
 
   # Mixte
+  if (traces) print("Mixte")
+  if (traces) print("Multivariate")
   mod_all_mxt <- mod_mixtes(data_train, y_name, effects, x_names)
+  if (traces) print("EN")
   mod_en_mxt <- mod_mixtes(data_train, y_name, effects, x_en)
+  if (traces) print("Stepwise")
   mod_step_mxt <- mod_mixtes(data_train, y_name, effects, x_step)
 
   models <- c(mods_uni_lm, list(mod_all_lm), list(mod_en_lm), list(mod_step_lm),
               list(mod_all_mxt), list(mod_en_mxt), list(mod_step_mxt))
   names(models) <- c(names(mods_uni_lm), "all_lm", "en_lm", "step_lm",
                      "all_mxt", "en_mxt", "step_mxt")
+  if (traces) print("Performances")
   models_perf <- models_performance(models = models, data_test = data_test,
                                     y_name = y_name, metric = metric,
                                     below_cutoff = below_cutoff)
 
   if (mod_compress) {
+    if (traces) print("Compress")
     models <- lapply(models, mod_compress)
   }
 
