@@ -5,6 +5,7 @@
 #' @param y_name le nom de la variable à expliquer
 #' @return les graphiques y ~ x
 #'
+#' @import ggplot2
 #' @export
 #'
 #' @examples
@@ -15,11 +16,12 @@ plot_y_x <- function(data, x_names = NULL, y_name) {
   }
 
   if (length(x_names) > 1) {
-    res <- sapply(x_names, function(x_name) plot_y_x(data, x_name, y_name))
+    figs <- lapply(x_names, function(x_name) plot_y_x(data, x_name, y_name))
   } else {
-    res <- plot(as.formula(paste0(y_name, " ~ ",
-                                  paste0(x_names, collapse = " + "))),
-                data = data)
+    figs <- ggplot(data.frame(y = data[, y_name], x = data[, x_names]),
+                   aes(x = x, y = y)) +
+      geom_point() +
+      theme_bw() + labs(x = x_names, y = y_name)
   }
-  return(res)
+  return(figs)
 }

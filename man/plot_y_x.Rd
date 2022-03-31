@@ -4,7 +4,7 @@
 \alias{plot_y_x}
 \title{Plot y ~ x}
 \usage{
-plot_y_x(data, x_names, y_name)
+plot_y_x(data, x_names = NULL, y_name)
 }
 \arguments{
 \item{data}{le jeu de données}
