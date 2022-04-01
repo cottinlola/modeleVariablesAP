@@ -21,7 +21,7 @@
 data_prep_all <- function(data, conv_mil = FALSE, n_min_years = 5,
                           outliers_custom_cutoff = NULL, remove_non_num = FALSE,
                           split_pct_train = 0.9) {
-  data[, setdiff(colnames(data), names(colSums(is.na(data))))]
+  data <- data[, setdiff(colnames(data), names(colSums(is.na(data))))]
   if (conv_mil) {
     data <- conversion_milliers(data)
   }
