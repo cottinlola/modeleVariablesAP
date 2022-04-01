@@ -25,9 +25,16 @@ plot_y_x <- function(data, x_names = NULL, y_name) {
   }
 
   if (class(figs) == "list") {
+    figs <- lapply(figs, function(fig) {
+      return(fig + ggpubr::rremove("ylab"))
+    })
     ncol <- 3
     figs <- ggpubr::ggarrange(plotlist = figs, ncol = ncol,
                               nrow = ceiling(length(figs) / ncol))
+    figs <- grid::annotate_figure(figs,
+                                  left = grid::textGrob(
+                                    y_name, rot = 90, vjust = 1,
+                                    gp = grid::gpar(cex = 1.3)))
   }
 
   return(figs)
