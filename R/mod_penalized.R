@@ -23,6 +23,7 @@ mod_penalized <- function(data, x_names = character(), y_name,
   if (length(x_names) != 0) {
     x <- x[, x_names]
   }
+  x <- x[, unlist(lapply(x, is.numeric))]
   if (y_name %in% colnames(x)) {
     x <- x[, -which(colnames(x) == y_name)]
   }
