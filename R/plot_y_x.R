@@ -31,10 +31,10 @@ plot_y_x <- function(data, x_names = NULL, y_name) {
     ncol <- 3
     figs <- ggpubr::ggarrange(plotlist = figs, ncol = ncol,
                               nrow = ceiling(length(figs) / ncol))
-    figs <- grid::annotate_figure(figs,
-                                  left = grid::textGrob(
-                                    y_name, rot = 90, vjust = 1,
-                                    gp = grid::gpar(cex = 1.3)))
+    figs <- ggpubr::annotate_figure(figs,
+                                    left = grid::textGrob(
+                                      y_name, rot = 90, vjust = 1,
+                                      gp = grid::gpar(cex = 1.3)))
   }
 
   return(figs)
