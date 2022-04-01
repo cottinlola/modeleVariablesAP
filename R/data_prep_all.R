@@ -29,6 +29,7 @@ data_prep_all <- function(data, conv_mil = FALSE, n_min_years = 5,
   if (remove_non_num) {
     data <- data[, unlist(lapply(data, is.numeric))]
   }
+  data <- data[, colSums(is.na(data)) > 0]
   data <- div_jeu(data, split_pct_train)
   return(data)
 }

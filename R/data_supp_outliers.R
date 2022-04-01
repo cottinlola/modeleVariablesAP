@@ -13,7 +13,7 @@
 
 supp_outliers <- function(data, custom_cutoff = NULL, graph = FALSE) {
   var_num <- setdiff(names(which(sapply(data, is.numeric))),
-              c("IDNUM", "MILEX"))
+                     c("IDNUM", "MILEX"))
   data_num <- data[, var_num]
   # 0n garde uniquement les variables avec suffisamment de variabilité
   t <- sapply(data_num, function(c) {
