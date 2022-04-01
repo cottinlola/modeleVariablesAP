@@ -23,5 +23,12 @@ plot_y_x <- function(data, x_names = NULL, y_name) {
       geom_point() +
       theme_bw() + labs(x = x_names, y = y_name)
   }
+
+  if (length(figs) > 0) {
+    ncol <- 3
+    figs <- ggpubr::ggarrange(plotlist = figs, ncol = ncol,
+                              nrow = ceiling(length(figs) / ncol))
+  }
+
   return(figs)
 }
