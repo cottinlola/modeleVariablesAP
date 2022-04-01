@@ -21,6 +21,7 @@
 data_prep_all <- function(data, conv_mil = FALSE, n_min_years = 5,
                           outliers_custom_cutoff = NULL, remove_non_num = FALSE,
                           split_pct_train = 0.9) {
+  data <- data[, colSums(is.na(data)) > 0]
   if (conv_mil) {
     data <- conversion_milliers(data)
   }
@@ -29,7 +30,6 @@ data_prep_all <- function(data, conv_mil = FALSE, n_min_years = 5,
   if (remove_non_num) {
     data <- data[, unlist(lapply(data, is.numeric))]
   }
-  data <- data[, colSums(is.na(data)) > 0]
   data <- div_jeu(data, split_pct_train)
   return(data)
 }
