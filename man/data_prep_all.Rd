@@ -11,7 +11,7 @@ data_prep_all(
   conv_mil = FALSE,
   n_min_years = 5,
   outliers_custom_cutoff = NULL,
-  remove_non_num = TRUE,
+  remove_non_num = FALSE,
   split_pct_train = 0.9
 )
 }

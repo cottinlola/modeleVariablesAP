@@ -18,7 +18,7 @@
 #' @param below_cutoff A numeric: seuil à dépasser
 #' @param traces A logical indicating if logs should be printed
 #'
-#' @return A list of both models and their performances
+#' @return A list of models, their performances and theirs variables
 #'
 #' @export
 #'
@@ -35,7 +35,7 @@ run <- function(data = NULL, conv_mil = FALSE, n_min_years = 5,
                 x_names = NULL, x_exclude = NULL, effects = "(MILEX | IDNUM)",
                 y_name,
                 metric = "rmse", below_cutoff = 5,
-                traces = TRUE) {
+                traces = FALSE) {
   if (is.null(data_train) | is.null(data_test)) {
     datasets <- data_prep_all(data, conv_mil, n_min_years,
                               outliers_custom_cutoff, split_pct_train,
@@ -59,12 +59,12 @@ run <- function(data = NULL, conv_mil = FALSE, n_min_years = 5,
   # EN
   if (traces) print("EN")
   mod_en <- mod_cv_penalized(data_train, x_names, y_name)
-  x_en <- mod_penalized_select_variables(mod_en)
+  x_en <- model_variables(mod_en)
   mod_en_lm <- mod_lineaire(data_train, x_en, y_name)
   # Stepwise
   if (traces) print("Stepwise")
   mod_step_lm <- mod_stepwise(data_train, x_names, y_name)
-  x_step <- setdiff(rownames(coef(mod_step_lm)), "(Intercept)")
+  x_step <- model_variables(mod_step_lm)
 
   # Mixte
   if (traces) print("Mixte")
@@ -83,6 +83,8 @@ run <- function(data = NULL, conv_mil = FALSE, n_min_years = 5,
   models_perf <- models_performance(models = models, data_test = data_test,
                                     y_name = y_name, metric = metric,
                                     below_cutoff = below_cutoff)
+  if (traces) print("Variables")
+  models_vars <- models_variables(models = models)
 
-  return(list(models = models, perf = models_perf))
+  return(list(models = models, perf = models_perf, vars = models_vars))
 }

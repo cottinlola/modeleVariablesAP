@@ -22,7 +22,7 @@ predict_y <- function(model, data_test, allow_new_levels = T) {
                          allow.new.levels = allow_new_levels)
     } else if (mymod %in% c("elnet", "cv.glmnet", "glmnet")) {
         #Modèles pénalisés
-        vars <- setdiff(rownames(coef(model)), "(Intercept)")
+        vars <- model_variables(model)
         y_hat <- as.vector(predict(model, newx = as.matrix(data_test[, vars])))
     }
     return(y_hat)

@@ -35,23 +35,3 @@ mod_penalized <- function(data, x_names = character(), y_name,
   mod_en$glmnet.fit$lambda.1se <- mod_en$lambda.1se # nolint
   return(mod_en$glmnet.fit)
 }
-
-#' Returns the variables' names of non zero betas of an EN fitted model
-#'
-#' @param mod_en A fitted EN model
-#' @param lambda A numeric corresponding to the desired regularization index
-#'
-#' @return A character vector of selected variables' names
-#'
-#' @export
-#'
-#' @example
-#' vars <- mod_penalized_select_variables(mod_en, lambda)
-#'
-mod_penalized_select_variables <- function(mod_en, lambda = NULL) {
-  if (is.null(lambda)) {
-    lambda <- mod_en$lambda.min
-  }
-  lambda_idx <- which(mod_en$lambda == lambda)
-  return(names(which(mod_en$beta[, lambda_idx] > 0)))
-}

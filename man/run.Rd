@@ -19,7 +19,7 @@ run(
   y_name,
   metric = "rmse",
   below_cutoff = 5,
-  traces = TRUE
+  traces = FALSE
 )
 }
 \arguments{
@@ -56,7 +56,7 @@ be ignored}
 \item{data_trian}{A data.frame: the training dataset}
 }
 \value{
-A list of both models and their performances
+A list of models, their performances and theirs variables
 }
 \description{
 Main function
