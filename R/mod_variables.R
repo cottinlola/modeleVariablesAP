@@ -36,6 +36,7 @@ model_variables.lm <- function(model, lambda = NULL) {
   vars <- all.vars(terms(model))
   return(vars[2:length(vars)])
 }
+model_variables.lmerMod <- model_variables.lm
 
 models_variables <- function(models, names = NULL, lambda = NULL) {
   if (is.null(names)) {
