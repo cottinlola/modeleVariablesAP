@@ -32,7 +32,7 @@ model_variables.cv.glmnet <- model_variables.glmnet
 #' @example
 #' vars <- model_variables(mod_lm)
 #'
-model_variables.lm <- function(model) {
+model_variables.lm <- function(model, lambda = NULL) {
   vars <- all.vars(terms(model))
   return(vars[2:length(vars)])
 }
