@@ -10,7 +10,7 @@ run(
   n_min_years = 5,
   outliers_custom_cutoff = NULL,
   split_pct_train = 0.9,
-  remove_non_num = TRUE,
+  remove_non_num = FALSE,
   data_train = NULL,
   data_test = NULL,
   x_names = NULL,

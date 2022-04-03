@@ -28,7 +28,7 @@ data_prep_all <- function(data, conv_mil = FALSE, n_min_years = 5,
   data <- selection_fermes(data, n_min_years)
   data <- supp_outliers(data, outliers_custom_cutoff)
   if (remove_non_num) {
-    data <- data[, unlist(lapply(data, is.numeric))]
+    data <- data_numeric_only(data)
   }
   data <- div_jeu(data, split_pct_train)
   return(data)

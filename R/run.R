@@ -30,16 +30,18 @@
 #'
 run <- function(data = NULL, conv_mil = FALSE, n_min_years = 5,
                 outliers_custom_cutoff = NULL, split_pct_train = 0.9,
-                remove_non_num = TRUE,
+                remove_non_num = FALSE,
                 data_train = NULL, data_test = NULL,
                 x_names = NULL, x_exclude = NULL, effects = "(MILEX | IDNUM)",
                 y_name,
                 metric = "rmse", below_cutoff = 5,
                 traces = FALSE) {
   if (is.null(data_train) | is.null(data_test)) {
-    datasets <- data_prep_all(data, conv_mil, n_min_years,
-                              outliers_custom_cutoff, split_pct_train,
-                              remove_non_num)
+    datasets <- data_prep_all(data, conv_mil = conv_mil,
+                              n_min_years = n_min_years,
+                              outliers_custom_cutoff = outliers_custom_cutoff,
+                              remove_non_num = remove_non_num,
+                              split_pct_train = split_pct_train)
     data_train <- datasets$train
     data_test <- datasets$test
   }

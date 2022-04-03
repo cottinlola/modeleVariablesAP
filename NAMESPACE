@@ -3,6 +3,7 @@
 S3method(model_variables,glmnet)
 S3method(model_variables,lm)
 export(conversion_milliers)
+export(data_numeric_only)
 export(data_prep_all)
 export(div_jeu)
 export(error)

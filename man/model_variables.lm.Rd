@@ -4,7 +4,7 @@
 \alias{model_variables.lm}
 \title{Returns the variables' names of a LM fitted model}
 \usage{
-\method{model_variables}{lm}(model)
+\method{model_variables}{lm}(model, lambda = NULL)
 }
 \arguments{
 \item{mod_en}{A fitted LM model}
