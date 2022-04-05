@@ -48,7 +48,7 @@ run <- function(data = NULL, conv_mil = FALSE, n_min_years = 5,
   if (is.null(x_names)) {
     x_names <- colnames(data_train)
   }
-  x_names <- setdiff(x_names, c(x_exclude, c("IDNUM", "MILEX"), y_name))
+  x_names <- setdiff(x_names, c(x_exclude, "IDNUM", y_name))
 
   # Linear
   if (traces) print("Linear")
