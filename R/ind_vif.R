@@ -40,6 +40,6 @@ vif_to_df.data.frame <- function(obj) {
   return(data.frame(var_names = rownames(obj), value = obj$GVIF))
 }
 
-vif_to_df.vector <- function(obj) {
+vif_to_df.numeric <- function(obj) {
   return(data.frame(var_names = names(obj), value = obj))
 }
