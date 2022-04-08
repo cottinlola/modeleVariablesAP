@@ -15,6 +15,7 @@ run(
   data_test = NULL,
   x_names = NULL,
   x_exclude = NULL,
+  x_exclude_non_num = FALSE,
   effects = "(MILEX | IDNUM)",
   y_name,
   metric = "rmse",
@@ -35,13 +36,18 @@ should appeared in the data to be selected}
 \item{split_pct_train}{Ratio between train and test data}
 
 \item{remove_non_num}{A logicial indicating if non numeric columns should
-be ignored}
+be remove when preparing dataset}
+
+\item{data_train}{A data.frame: the training dataset}
 
 \item{data_test}{A data.frame: the testing dataset}
 
 \item{x_names}{A character vector: explainatory variables}
 
 \item{x_exclude}{A character vector: explainatory variables to exclude}
+
+\item{x_exclude_non_num}{A logicial indicating if non numeric columns should
+be ignored}
 
 \item{effects}{A character of random effects to consider}
 
@@ -52,8 +58,6 @@ be ignored}
 \item{below_cutoff}{A numeric: seuil à dépasser}
 
 \item{traces}{A logical indicating if logs should be printed}
-
-\item{data_trian}{A data.frame: the training dataset}
 }
 \value{
 A list of models, their performances and theirs variables

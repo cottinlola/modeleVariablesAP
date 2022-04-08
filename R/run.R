@@ -7,11 +7,13 @@
 #' @param outliers_custom_cutoff Threshold to identified outliers
 #' @param split_pct_train Ratio between train and test data
 #' @param remove_non_num    A logicial indicating if non numeric columns should
-#'                          be ignored
-#' @param data_trian A data.frame: the training dataset
+#'                          be remove when preparing dataset
+#' @param data_train A data.frame: the training dataset
 #' @param data_test A data.frame: the testing dataset
 #' @param x_names A character vector: explainatory variables
 #' @param x_exclude A character vector: explainatory variables to exclude
+#' @param x_exclude_non_num A logicial indicating if non numeric columns should
+#'                          be ignored
 #' @param effects A character of random effects to consider
 #' @param y_name A character: the variable to explain
 #' @param metric A character: the metric to use for error computation
@@ -32,7 +34,8 @@ run <- function(data = NULL, conv_mil = FALSE, n_min_years = 5,
                 outliers_custom_cutoff = NULL, split_pct_train = 0.9,
                 remove_non_num = FALSE,
                 data_train = NULL, data_test = NULL,
-                x_names = NULL, x_exclude = NULL, effects = "(MILEX | IDNUM)",
+                x_names = NULL, x_exclude = NULL, x_exclude_non_num = FALSE,
+                effects = "(MILEX | IDNUM)",
                 y_name,
                 metric = "rmse", below_cutoff = 5,
                 traces = FALSE) {
@@ -49,6 +52,10 @@ run <- function(data = NULL, conv_mil = FALSE, n_min_years = 5,
     x_names <- colnames(data_train)
   }
   x_names <- setdiff(x_names, c(x_exclude, "IDNUM", y_name))
+  if (x_exclude_non_num) {
+    x_names <- setdiff(x_names,
+                       names(which(!unlist(lapply(data_train, is.numeric)))))
+  }
 
   # Linear
   if (traces) print("Linear")
