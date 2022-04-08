@@ -17,8 +17,8 @@
 ind_vif <- function(mod, graph = FALSE) {
   vif_values <- car::vif(mod)
   if (graph == TRUE) {
-    df <- data.frame(var_names = names(vif_values), value = vif_values)
-    p <- ggplot(df, aes(y = var_names, x = value)) +
+    df <- data.frame(var_names = rownames(vif_values), value = vif_values)
+    p <- ggplot(df, aes(y = var_names, x = value.GVIF)) +
     geom_bar(stat = "identity", fill = "steelblue") +
     theme_minimal() + labs(y = "", x = "VIF values")
     return(p)
