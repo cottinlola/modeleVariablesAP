@@ -13,15 +13,33 @@
 #'
 #' @examples
 #' vif(modele_lineaire, graph = TRUE)
-
 ind_vif <- function(mod, graph = FALSE) {
   vif_values <- car::vif(mod)
   if (graph == TRUE) {
-    df <- data.frame(var_names = names(vif_values), value = vif_values)
+    df <- vif_to_df(vif_values)
     p <- ggplot(df, aes(y = var_names, x = value)) +
     geom_bar(stat = "identity", fill = "steelblue") +
     theme_minimal() + labs(y = "", x = "VIF values")
     return(p)
   }
   return(vif_values)
+}
+
+#' Retourne un data.frame à partir d'un objet retourné par car::vif
+#'
+#' @param obj l'objet retourné par car::vif
+#' @return un data.frame donnant le vif de chaque variable
+#'
+#' @export
+#'
+#' @examples
+#' vif_to_df(vif_values)
+vif_to_df <- function(obj, ...) UseMethod("vif_to_df")
+
+vif_to_df.data.frame <- function(obj) {
+  return(data.frame(var_names = rownames(obj), value = obj$GVIF))
+}
+
+vif_to_df.vector <- function(obj) {
+  return(data.frame(var_names = names(obj), value = obj))
 }
