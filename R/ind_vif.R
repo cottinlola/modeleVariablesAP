@@ -37,7 +37,7 @@ ind_vif <- function(mod, graph = FALSE) {
 vif_to_df <- function(obj, ...) UseMethod("vif_to_df")
 
 vif_to_df.matrix <- function(obj) {
-  return(data.frame(var_names = rownames(obj), value = obj$GVIF))
+  return(data.frame(var_names = rownames(obj), value = obj[, "GVIF"]))
 }
 
 vif_to_df.numeric <- function(obj) {
