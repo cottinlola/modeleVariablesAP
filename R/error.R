@@ -132,10 +132,7 @@ est_percent_below <- function(actual = NULL, predicted = NULL, cutoff = 5,
 #' @param target A numeric: desired percent of "acceptable" estimated values
 #' @param metric A character naming how to compute the error
 #' @param errs A vector of numeric being the individual errors
-#' @param previous_value A numeric: value to use as cutoff for est_percent_below
-#' @param previous_step A numeric: value used to update previous_value
-#' @param previous_sign An integer: computed sign difference between target
-#'                                  and est_percent
+#' @param window A list of integers: window where the objective lies
 #'
 #' @return The numeric percentage of prediction errors below the cutoff
 #'
@@ -147,29 +144,25 @@ est_percent_below <- function(actual = NULL, predicted = NULL, cutoff = 5,
 err_percent_above <- function(actual = NULL, predicted = NULL, target = 80,
                               metric = "mape",
                               errs = ind_error(actual, predicted, metric),
-                              previous_value = 50,
-                              previous_step = previous_value,
-                              previous_sign = NULL) {
+                              window = list(below = 0, above = 100)) {
   dist_tolerance <- 1
-  est_percent <- est_percent_below(cutoff = previous_value, errs = errs)
+  window_min_size <- 1
+  value <- round(mean(window))
+  est_percent <- est_percent_below(cutoff = value, errs = errs)
   dist_to_target <- target - est_percent
   if (abs(dist_to_target) < dist_tolerance) {
-    return(previous_value)
+    return(value)
   } else {
-    current_sign <- sign(dist_to_target)
-    if (!is.null(previous_sign) && previous_sign != current_sign) {
-      current_step <- previous_step / 2
+    if (sign(dist_to_target) > 0) {
+      window$above <- value
     } else {
-      current_step <- previous_step
+      window$below <- value
     }
-    current_value <- max(0, previous_value + current_sign * current_step)
-    if (current_value == previous_value) {
-      return(previous_value)
+    if (window$above - window$below <= window_min_size) {
+      return(mean(window))
     }
     return(err_percent_above(target = 80, metric = metric, errs = errs,
-                             previous_value = current_value,
-                             previous_step = current_step,
-                             previous_sign = current_sign))
+                             window = window))
   }
 }
 

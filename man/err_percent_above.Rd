@@ -11,9 +11,7 @@ err_percent_above(
   target = 80,
   metric = "mape",
   errs = ind_error(actual, predicted, metric),
-  previous_value = 50,
-  previous_step = previous_value,
-  previous_sign = NULL
+  window = list(below = 0, above = 100)
 )
 }
 \arguments{
@@ -27,12 +25,7 @@ err_percent_above(
 
 \item{errs}{A vector of numeric being the individual errors}
 
-\item{previous_value}{A numeric: value to use as cutoff for est_percent_below}
-
-\item{previous_step}{A numeric: value used to update previous_value}
-
-\item{previous_sign}{An integer: computed sign difference between target
-and est_percent}
+\item{window}{A list of integers: window where the objective lies}
 }
 \value{
 The numeric percentage of prediction errors below the cutoff
