@@ -20,11 +20,8 @@ model_performance <- function(model, data_test, y_name, metric,
   }
   err <- model_error(model, data_test, y_name, metric, est_below_cutoff,
                      err_above_cutoff)
-  df <- data.frame(r = round(r_squared, digits = 2), err = err$err,
-                   est_below = paste0(formatC(err$est_below, digits = 2,
-                                                format = "f"), "%"),
-                   err_above = paste0(formatC(err$err_above, digits = 2,
-                                                format = "f"), "%"))
+  df <- data.frame(r = r_squared, err = err$err,
+                   est_below = err$est_below, err_above = err$err_above)
   colnames(df) <- c("R2", metric, paste0("mape<=", est_below_cutoff, "%"),
                     paste0("est=", err_above_cutoff, "%"))
   return(df)
