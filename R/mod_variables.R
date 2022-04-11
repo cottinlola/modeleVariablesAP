@@ -17,7 +17,7 @@ model_variables.glmnet <- function(model, lambda = NULL) {
     lambda <- model$lambda.min
   }
   lambda_idx <- which(model$lambda == lambda)
-  return(names(which(model$beta[, lambda_idx] > 0)))
+  return(names(which(model$beta[, lambda_idx] != 0)))
 }
 model_variables.cv.glmnet <- model_variables.glmnet
 
