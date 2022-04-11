@@ -6,11 +6,11 @@
 \usage{
 run(
   data = NULL,
-  conv_mil = FALSE,
+  reduce_mil = FALSE,
+  reduce_by = NULL,
   n_min_years = 5,
   outliers_custom_cutoff = NULL,
   split_pct_train = 0.9,
-  remove_non_num = FALSE,
   data_train = NULL,
   data_test = NULL,
   x_names = NULL,
@@ -26,7 +26,9 @@ run(
 \arguments{
 \item{data}{A data.frame: the full dataset}
 
-\item{conv_mil}{A logical indicating if thousands conversion should be done}
+\item{reduce_mil}{A logical indicating if thousands conversion should be done}
+
+\item{reduce_by}{A character specifying a variable to reduce by}
 
 \item{n_min_years}{An integer giving the minimal number of years a farm
 should appeared in the data to be selected}
@@ -34,9 +36,6 @@ should appeared in the data to be selected}
 \item{outliers_custom_cutoff}{Threshold to identified outliers}
 
 \item{split_pct_train}{Ratio between train and test data}
-
-\item{remove_non_num}{A logicial indicating if non numeric columns should
-be remove when preparing dataset}
 
 \item{data_train}{A data.frame: the training dataset}
 

@@ -10,5 +10,9 @@
 #' data_num <- data_numeric_only(data)
 #'
 data_numeric_only <- function(data) {
-  return(data[, unlist(lapply(data, is.numeric))])
+  return(data[, get_numeric_var(data)])
+}
+
+get_numeric_var <- function(data) {
+  return(names(which(unlist(lapply(data, is.numeric)))))
 }

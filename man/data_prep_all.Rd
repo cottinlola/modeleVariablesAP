@@ -8,25 +8,24 @@ train and test sets}
 \usage{
 data_prep_all(
   data,
-  conv_mil = FALSE,
+  reduce_mil = FALSE,
+  reduce_by = NULL,
   n_min_years = 5,
   outliers_custom_cutoff = NULL,
-  remove_non_num = FALSE,
   split_pct_train = 0.9
 )
 }
 \arguments{
 \item{data}{A data.frame: the full dataset}
 
-\item{conv_mil}{A logical indicating if thousands conversion should be done}
+\item{reduce_mil}{A logical indicating if thousands conversion should be done}
+
+\item{reduce_by}{A character specifying a variable to reduce by}
 
 \item{n_min_years}{An integer giving the minimal number of years a farm
 should appeared in the data to be selected}
 
 \item{outliers_custom_cutoff}{Threshold to identified outliers}
-
-\item{remove_non_num}{A logicial indicating if non numeric columns should
-be ignored}
 
 \item{split_pct_train}{Ratio between train and test data}
 }
