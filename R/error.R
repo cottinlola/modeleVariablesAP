@@ -153,11 +153,14 @@ err_percent_above <- function(actual = NULL, predicted = NULL, target = 80,
     if (!is.null(previous_sign) && previous_sign != current_sign) {
       step <- value / 2
     } else {
+      if (value == 0) {
+        return(value)
+      }
       step <- value
     }
+    value <- max(0, value + current_sign * step)
     return(err_percent_above(target = 80, metric = metric, errs = errs,
-                             value = value + current_sign * step,
-                             previous_sign = current_sign))
+                             value = value, previous_sign = current_sign))
   }
 }
 
