@@ -4,7 +4,14 @@
 \alias{model_performance}
 \title{Returns a basic summary of a model's performance}
 \usage{
-model_performance(model, data_test, y_name, metric, below_cutoff)
+model_performance(
+  model,
+  data_test,
+  y_name,
+  metric,
+  est_below_cutoff,
+  err_above_cutoff
+)
 }
 \arguments{
 \item{model}{The model to evaluate}
@@ -15,7 +22,9 @@ model_performance(model, data_test, y_name, metric, below_cutoff)
 
 \item{metric}{The metric to use for error computation}
 
-\item{below_cutoff}{seuil à dépasser}
+\item{est_below_cutoff}{"Acceptable" error in percent}
+
+\item{err_above_cutoff}{Desired percent of "acceptable" estimated values}
 }
 \value{
 A data.frame holding the r.squared and errors metrics
@@ -24,5 +33,5 @@ A data.frame holding the r.squared and errors metrics
 Returns a basic summary of a model's performance
 }
 \examples{
-model_performance(model, data_test, "RESCO", c("MACHINE.IND", "MILEX"))
+model_performance(model, data_test, "RESCO")
 }

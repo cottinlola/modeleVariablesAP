@@ -4,23 +4,29 @@
 #' @param data_test A data.frame of test data
 #' @param y_name The variable to explain
 #' @param metric The metric to use for error computation
-#' @param below_cutoff seuil à dépasser
+#' @param est_below_cutoff "Acceptable" error in percent
+#' @param err_above_cutoff Desired percent of "acceptable" estimated values
 #' @return A data.frame holding the r.squared and errors metrics
 #'
 #' @export
 #'
 #' @examples
-#' model_performance(model, data_test, "RESCO", c("MACHINE.IND", "MILEX"))
-model_performance <- function(model, data_test, y_name, metric, below_cutoff) {
+#' model_performance(model, data_test, "RESCO")
+model_performance <- function(model, data_test, y_name, metric,
+                              est_below_cutoff, err_above_cutoff) {
   r_squared <- summary(model)$r.squared
   if (is.null(r_squared)) {
     r_squared <- NA
   }
-  err <- model_error(model, data_test, y_name, metric, below_cutoff)
-  df <- data.frame(r = round(r_squared, digits = 2), err = err$error,
-                   below_error = paste0(formatC(err$below_error, digits = 2,
+  err <- model_error(model, data_test, y_name, metric, est_below_cutoff,
+                     err_above_cutoff)
+  df <- data.frame(r = round(r_squared, digits = 2), err = err$err,
+                   est_below = paste0(formatC(err$est_below, digits = 2,
+                                                format = "f"), "%"),
+                   err_above = paste0(formatC(err$err_above, digits = 2,
                                                 format = "f"), "%"))
-  colnames(df) <- c("R2", metric, paste0("mape<=", below_cutoff, "%"))
+  colnames(df) <- c("R2", metric, paste0("mape<=", est_below_cutoff, "%"),
+                    paste0("est=", err_above_cutoff, "%"))
   return(df)
 }
 
@@ -40,13 +46,14 @@ model_performance <- function(model, data_test, y_name, metric, below_cutoff) {
 #' models_performance(models, names, data_test, "RESCO",
 #'                    c("MACHINE.IND", "MILEX"))
 models_performance <- function(models, names = NULL, data_test, y_name, metric,
-                               below_cutoff) {
+                               est_below_cutoff, err_above_cutoff) {
   if (is.null(names)) {
     names <- names(models)
   }
   dfs <- lapply(models, function(model) model_performance(model, data_test,
                                                           y_name, metric,
-                                                          below_cutoff))
+                                                          est_below_cutoff,
+                                                          err_above_cutoff))
   df <- do.call(rbind, dfs)
   rownames(df) <- names
   return(df)

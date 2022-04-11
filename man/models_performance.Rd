@@ -10,7 +10,8 @@ models_performance(
   data_test,
   y_name,
   metric,
-  below_cutoff
+  est_below_cutoff,
+  err_above_cutoff
 )
 }
 \arguments{

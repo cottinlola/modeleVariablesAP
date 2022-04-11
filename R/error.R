@@ -98,11 +98,17 @@ error <- function(actual, predicted, metric = "rmse") {
   return(err_fun(actual, predicted))
 }
 
-#' Computes the percentage of prediction errors below a given threshold
+ind_error <- function(actual, predicted, metric) {
+  fun <- get_metric_fun(metric)
+  errs <- mapply(fun, actual, predicted)
+  return(errs)
+}
+
+#' Computes the percentage of estimates' errors below a given threshold
 #'
 #' @param actual A numeric vector of true values
 #' @param predicted A numeric vector of estimated values
-#' @param cutoff A numeric being the threshold value
+#' @param cutoff A numeric: "acceptable" error in percent
 #' @param metric A character naming how to compute the error
 #'
 #' @return The numeric percentage of prediction errors below the cutoff
@@ -110,12 +116,47 @@ error <- function(actual, predicted, metric = "rmse") {
 #' @export
 #'
 #' @examples
-#' percent_err_below(actual = c(35, 36), predicted = c(36, 34), cutoff = 5,
+#' est_percent_below(actual = c(35, 36), predicted = c(36, 34), cutoff = 5,
 #'                   metric = "mape")
-percent_err_below <- function(actual, predicted, cutoff = 5, metric = "mape") {
-  fun <- get_metric_fun(metric)
-  errs <- mapply(fun, actual, predicted)
+est_percent_below <- function(actual, predicted, cutoff = 5, metric = "mape",
+                              errs = ind_error(actual, predicted, metric)) {
   return(100 * sum(errs <= cutoff) / length(actual))
+}
+
+#' Computes the accepted error in percentage needed to get a percentage of
+#' acceptable estimates close to a target value
+#'
+#' @param actual A numeric vector of true values
+#' @param predicted A numeric vector of estimated values
+#' @param cutoff A numeric: desired percent of "acceptable" estimated values
+#' @param metric A character naming how to compute the error
+#'
+#' @return The numeric percentage of prediction errors below the cutoff
+#'
+#' @export
+#'
+#' @examples
+#' err_percent_above(actual = c(35, 36), predicted = c(36, 34), target = 80,
+#'                   metric = "mape")
+err_percent_above <- function(actual, predicted, target = 80, metric = "mape",
+                              errs = ind_error(actual, predicted, metric),
+                              value = 50, previous_sign = NULL) {
+  dist_tolerance <- 1
+  est_percent <- est_percent_below(cutoff = value, errs = errs)
+  dist_to_target <- target - est_percent
+  if (abs(dist_to_target) < dist_tolerance) {
+    return(value)
+  } else {
+    current_sign <- sign(dist_to_target)
+    if (!is.null(previous_sign) && previous_sign != current_sign) {
+      step <- value / 2
+    } else {
+      step <- value
+    }
+    return(err_percent_above(target = 80, metric = metric, errs = errs,
+                             value = value + current_sign * step,
+                             previous_sign = current_sign))
+  }
 }
 
 #' Returns the error introduced by a model
@@ -124,7 +165,8 @@ percent_err_below <- function(actual, predicted, cutoff = 5, metric = "mape") {
 #' @param data_test A data.frame
 #' @param y_name A character naming the variable to explain
 #' @param metric A character naming how to compute the error
-#' @param below_cutoff A numeric being the threshold value
+#' @param est_below_cutoff "Acceptable" error in percent
+#' @param err_above_cutoff Desired percent of "acceptable" estimated values
 #'
 #' @return The numeric error
 #'
@@ -133,9 +175,15 @@ percent_err_below <- function(actual, predicted, cutoff = 5, metric = "mape") {
 #' @examples
 #' model_error(mod_lm, data_test, y_name = "SUBEX", metric = "rmse")
 model_error <- function(model, data_test, y_name, metric = "rmse",
-                        below_cutoff = 5) {
+                        error_only = FALSE,
+                        est_below_cutoff = 5, err_above_cutoff = 80) {
   actual <- data_test[, y_name]
   predicted <- predict_y(model, data_test)
-  return(list(error = error(actual, predicted, metric),
-              below_error = percent_err_below(actual, predicted, below_cutoff)))
+  err <- error(actual, predicted, metric)
+  mod_err <- list(err = err)
+  if (!error_only) {
+    mod_err$est_below <- est_percent_below(actual, predicted, est_below_cutoff)
+    mod_err$err_above <- err_percent_above(actual, predicted, err_above_cutoff)
+  }
+  return(mod_err)
 }

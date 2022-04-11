@@ -4,7 +4,15 @@
 \alias{model_error}
 \title{Returns the error introduced by a model}
 \usage{
-model_error(model, data_test, y_name, metric = "rmse", below_cutoff = 5)
+model_error(
+  model,
+  data_test,
+  y_name,
+  metric = "rmse",
+  error_only = FALSE,
+  est_below_cutoff = 5,
+  err_above_cutoff = 80
+)
 }
 \arguments{
 \item{model}{A model}
@@ -15,7 +23,9 @@ model_error(model, data_test, y_name, metric = "rmse", below_cutoff = 5)
 
 \item{metric}{A character naming how to compute the error}
 
-\item{below_cutoff}{A numeric being the threshold value}
+\item{est_below_cutoff}{"Acceptable" error in percent}
+
+\item{err_above_cutoff}{Desired percent of "acceptable" estimated values}
 }
 \value{
 The numeric error
