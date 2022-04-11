@@ -121,7 +121,7 @@ ind_error <- function(actual, predicted, metric) {
 est_percent_below <- function(actual = NULL, predicted = NULL, cutoff = 5,
                               metric = "mape",
                               errs = ind_error(actual, predicted, metric)) {
-  return(100 * sum(errs <= cutoff) / length(actual))
+  return(100 * sum(errs <= cutoff) / length(errs))
 }
 
 #' Computes the accepted error in percentage needed to get a percentage of
