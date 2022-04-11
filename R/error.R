@@ -129,8 +129,13 @@ est_percent_below <- function(actual = NULL, predicted = NULL, cutoff = 5,
 #'
 #' @param actual A numeric vector of true values
 #' @param predicted A numeric vector of estimated values
-#' @param cutoff A numeric: desired percent of "acceptable" estimated values
+#' @param target A numeric: desired percent of "acceptable" estimated values
 #' @param metric A character naming how to compute the error
+#' @param errs A vector of numeric being the individual errors
+#' @param previous_value A numeric: value to use as cutoff for est_percent_below
+#' @param previous_step A numeric: value used to update previous_value
+#' @param previous_sign An integer: computed sign difference between target
+#'                                  and est_percent
 #'
 #' @return The numeric percentage of prediction errors below the cutoff
 #'
@@ -142,25 +147,28 @@ est_percent_below <- function(actual = NULL, predicted = NULL, cutoff = 5,
 err_percent_above <- function(actual = NULL, predicted = NULL, target = 80,
                               metric = "mape",
                               errs = ind_error(actual, predicted, metric),
-                              value = 50, previous_sign = NULL) {
+                              previous_value = 50,
+                              previous_step = previous_value,
+                              previous_sign = NULL) {
   dist_tolerance <- 1
-  est_percent <- est_percent_below(cutoff = value, errs = errs)
+  est_percent <- est_percent_below(cutoff = previous_value, errs = errs)
   dist_to_target <- target - est_percent
   if (abs(dist_to_target) < dist_tolerance) {
-    return(value)
+    return(previous_value)
   } else {
     current_sign <- sign(dist_to_target)
     if (!is.null(previous_sign) && previous_sign != current_sign) {
-      step <- value / 2
+      current_step <- previous_step / 2
     } else {
-      if (value == 0) {
-        return(value)
-      }
-      step <- value
+      current_step <- previous_step
     }
-    value <- max(0, value + current_sign * step)
+    current_value <- max(0, previous_value + current_sign * current_step)
+    if (current_value == previous_value) {
+      return(previous_value)
+    }
     return(err_percent_above(target = 80, metric = metric, errs = errs,
-                             value = value, previous_sign = current_sign))
+                             previous_value = current_value,
+                             previous_sign = current_sign))
   }
 }
 

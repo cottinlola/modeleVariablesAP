@@ -6,12 +6,13 @@
 acceptable estimates close to a target value}
 \usage{
 err_percent_above(
-  actual,
-  predicted,
+  actual = NULL,
+  predicted = NULL,
   target = 80,
   metric = "mape",
   errs = ind_error(actual, predicted, metric),
-  value = 50,
+  previous_value = 50,
+  previous_step = previous_value,
   previous_sign = NULL
 )
 }
@@ -20,9 +21,18 @@ err_percent_above(
 
 \item{predicted}{A numeric vector of estimated values}
 
+\item{target}{A numeric: desired percent of "acceptable" estimated values}
+
 \item{metric}{A character naming how to compute the error}
 
-\item{cutoff}{A numeric: desired percent of "acceptable" estimated values}
+\item{errs}{A vector of numeric being the individual errors}
+
+\item{previous_value}{A numeric: value to use as cutoff for est_percent_below}
+
+\item{previous_step}{A numeric: value used to update previous_value}
+
+\item{previous_sign}{An integer: computed sign difference between target
+and est_percent}
 }
 \value{
 The numeric percentage of prediction errors below the cutoff

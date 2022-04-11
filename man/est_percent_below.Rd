@@ -5,8 +5,8 @@
 \title{Computes the percentage of estimates' errors below a given threshold}
 \usage{
 est_percent_below(
-  actual,
-  predicted,
+  actual = NULL,
+  predicted = NULL,
   cutoff = 5,
   metric = "mape",
   errs = ind_error(actual, predicted, metric)
