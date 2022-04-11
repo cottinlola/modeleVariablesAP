@@ -147,7 +147,7 @@ err_percent_above <- function(actual = NULL, predicted = NULL, target = 80,
                               window = list(below = 0, above = 100)) {
   dist_tolerance <- 1
   window_min_size <- 1
-  value <- round(mean(window))
+  value <- round(mean(unlist(window)))
   est_percent <- est_percent_below(cutoff = value, errs = errs)
   dist_to_target <- target - est_percent
   if (abs(dist_to_target) < dist_tolerance) {
@@ -159,7 +159,7 @@ err_percent_above <- function(actual = NULL, predicted = NULL, target = 80,
       window$below <- value
     }
     if (window$above - window$below <= window_min_size) {
-      return(mean(window))
+      return(mean(unlist(window)))
     }
     return(err_percent_above(target = target, metric = metric, errs = errs,
                              window = window))
