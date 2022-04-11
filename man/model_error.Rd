@@ -9,9 +9,9 @@ model_error(
   data_test,
   y_name,
   metric = "rmse",
-  error_only = FALSE,
   est_below_cutoff = 5,
-  err_above_cutoff = 80
+  err_above_cutoff = 80,
+  error_only = FALSE
 )
 }
 \arguments{

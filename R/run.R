@@ -16,7 +16,8 @@
 #' @param effects A character of random effects to consider
 #' @param y_name A character: the variable to explain
 #' @param metric A character: the metric to use for error computation
-#' @param below_cutoff A numeric: seuil à dépasser
+#' @param est_below_cutoff "Acceptable" error in percent
+#' @param err_above_cutoff Desired percent of "acceptable" estimated values
 #' @param traces A logical indicating if logs should be printed
 #'
 #' @return A list of models, their performances and theirs variables
@@ -36,7 +37,7 @@ run <- function(data = NULL, reduce_mil = FALSE, reduce_by = NULL,
                 x_names = NULL, x_exclude = NULL, x_exclude_non_num = FALSE,
                 effects = "(MILEX | IDNUM)",
                 y_name,
-                metric = "rmse", below_cutoff = 5,
+                metric = "rmse", est_below_cutoff = 10, err_above_cutoff = 80,
                 traces = FALSE) {
   if (is.null(data_train) | is.null(data_test)) {
     datasets <- data_prep_all(data, reduce_mil = reduce_mil,
@@ -88,7 +89,8 @@ run <- function(data = NULL, reduce_mil = FALSE, reduce_by = NULL,
   if (traces) print("Performances")
   models_perf <- models_performance(models = models, data_test = data_test,
                                     y_name = y_name, metric = metric,
-                                    below_cutoff = below_cutoff)
+                                    est_below_cutoff = est_below_cutoff,
+                                    err_above_cutoff = err_above_cutoff)
   if (traces) print("Variables")
   models_vars <- models_variables(models = models)
 

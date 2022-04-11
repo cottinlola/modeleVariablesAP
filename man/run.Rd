@@ -19,7 +19,8 @@ run(
   effects = "(MILEX | IDNUM)",
   y_name,
   metric = "rmse",
-  below_cutoff = 5,
+  est_below_cutoff = 10,
+  err_above_cutoff = 80,
   traces = FALSE
 )
 }
@@ -54,7 +55,9 @@ be ignored}
 
 \item{metric}{A character: the metric to use for error computation}
 
-\item{below_cutoff}{A numeric: seuil à dépasser}
+\item{est_below_cutoff}{"Acceptable" error in percent}
+
+\item{err_above_cutoff}{Desired percent of "acceptable" estimated values}
 
 \item{traces}{A logical indicating if logs should be printed}
 }

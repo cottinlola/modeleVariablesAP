@@ -175,8 +175,8 @@ err_percent_above <- function(actual, predicted, target = 80, metric = "mape",
 #' @examples
 #' model_error(mod_lm, data_test, y_name = "SUBEX", metric = "rmse")
 model_error <- function(model, data_test, y_name, metric = "rmse",
-                        error_only = FALSE,
-                        est_below_cutoff = 5, err_above_cutoff = 80) {
+                        est_below_cutoff = 5, err_above_cutoff = 80,
+                        error_only = FALSE) {
   actual <- data_test[, y_name]
   predicted <- predict_y(model, data_test)
   err <- error(actual, predicted, metric)
