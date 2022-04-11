@@ -161,8 +161,9 @@ err_percent_above <- function(actual = NULL, predicted = NULL, target = 80,
     if (window$above - window$below <= window_min_size) {
       if (window$below == 0) {
         return(mean(unlist(window)))
-      }
-      else {
+      } else if (window$above >= 1000) {
+        return(window$above)
+      } else {
         window <- list(below = window$above, above = window$above * 2)
       }
     }
