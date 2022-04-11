@@ -168,6 +168,7 @@ err_percent_above <- function(actual = NULL, predicted = NULL, target = 80,
     }
     return(err_percent_above(target = 80, metric = metric, errs = errs,
                              previous_value = current_value,
+                             previous_step = current_step,
                              previous_sign = current_sign))
   }
 }
