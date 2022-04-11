@@ -150,6 +150,10 @@ err_percent_above <- function(actual = NULL, predicted = NULL, target = 80,
   value <- round(mean(unlist(window)))
   est_percent <- est_percent_below(cutoff = value, errs = errs)
   dist_to_target <- target - est_percent
+
+  print(window)
+  print(value)
+
   if (abs(dist_to_target) < dist_tolerance) {
     return(value)
   } else {
