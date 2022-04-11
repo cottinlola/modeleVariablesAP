@@ -118,7 +118,8 @@ ind_error <- function(actual, predicted, metric) {
 #' @examples
 #' est_percent_below(actual = c(35, 36), predicted = c(36, 34), cutoff = 5,
 #'                   metric = "mape")
-est_percent_below <- function(actual, predicted, cutoff = 5, metric = "mape",
+est_percent_below <- function(actual = NULL, predicted = NULL, cutoff = 5,
+                              metric = "mape",
                               errs = ind_error(actual, predicted, metric)) {
   return(100 * sum(errs <= cutoff) / length(actual))
 }
@@ -138,7 +139,8 @@ est_percent_below <- function(actual, predicted, cutoff = 5, metric = "mape",
 #' @examples
 #' err_percent_above(actual = c(35, 36), predicted = c(36, 34), target = 80,
 #'                   metric = "mape")
-err_percent_above <- function(actual, predicted, target = 80, metric = "mape",
+err_percent_above <- function(actual = NULL, predicted = NULL, target = 80,
+                              metric = "mape",
                               errs = ind_error(actual, predicted, metric),
                               value = 50, previous_sign = NULL) {
   dist_tolerance <- 1
