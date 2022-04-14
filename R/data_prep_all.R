@@ -23,12 +23,12 @@ data_prep_all <- function(data, reduce_mil = FALSE, reduce_by = NULL,
   data <- data[, which(colSums(is.na(data)) == 0)]
   data <- selection_fermes(data, n_min_years)
   data <- supp_outliers(data, outliers_custom_cutoff)
-  data <- div_jeu(data, split_pct_train)
   if (reduce_mil) {
     data <- conversion_milliers(data)
   }
   if (!is.null(reduce_by)) {
     data <- reduce_by(data, reduce_by)
   }
+  data <- div_jeu(data, split_pct_train)
   return(data)
 }
