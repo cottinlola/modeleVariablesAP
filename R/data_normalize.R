@@ -1,3 +1,14 @@
+#' Normalize numerical data using the explotations' surface for farming kind
+#' and the ugb for breeding ones.
+#'
+#' @param data A data.frame: the full dataset
+#'
+#' @return A data.frame normalized
+#'
+#' @export
+#'
+#' @example
+#' data_norm <- data_normalize(data)
 data_normalize <- function(data) {
   breeding <- c("bovins", "ovins_caprins", "polyélevage", "porcins",
                 "volailles")
