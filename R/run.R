@@ -1,10 +1,11 @@
 #' Main function
 #'
 #' @param data A data.frame: the full dataset
-#' @param reduce_mil A logical indicating if thousands conversion should be done
-#' @param reduce_by A character specifying a variable to reduce by
 #' @param n_min_years   An integer giving the minimal number of years a farm
 #'                      should appeared in the data to be selected
+#' @param normalize A logical indicating if numerical variables should be
+#'                  normalized
+#' @param reduce_mil A logical indicating if thousands conversion should be done
 #' @param outliers_custom_cutoff Threshold to identified outliers
 #' @param split_pct_train Ratio between train and test data
 #' @param data_train A data.frame: the training dataset
@@ -30,8 +31,8 @@
 #' res <- run(data = data, x_exclude = c("RESCO", "..."), y_name = "SUBEX")
 #' res <- run(data_train = data_train, data_test = data_test, y_name = "SUBEX")
 #'
-run <- function(data = NULL, reduce_mil = FALSE, reduce_by = NULL,
-                n_min_years = 5, outliers_custom_cutoff = NULL,
+run <- function(data = NULL, n_min_years = 5, normalize = TRUE,
+                reduce_mil = FALSE, outliers_custom_cutoff = NULL,
                 split_pct_train = 0.9,
                 data_train = NULL, data_test = NULL,
                 x_names = NULL, x_exclude = NULL, x_exclude_non_num = FALSE,
@@ -40,8 +41,8 @@ run <- function(data = NULL, reduce_mil = FALSE, reduce_by = NULL,
                 metric = "rmse", est_below_cutoff = 10, err_above_cutoff = 80,
                 traces = FALSE) {
   if (is.null(data_train) | is.null(data_test)) {
-    datasets <- data_prep_all(data, reduce_mil = reduce_mil,
-                              reduce_by = reduce_by, n_min_years = n_min_years,
+    datasets <- data_prep_all(data, n_min_years = n_min_years,
+                              normalize = normalize, reduce_mil = reduce_mil,
                               outliers_custom_cutoff = outliers_custom_cutoff,
                               split_pct_train = split_pct_train)
     data_train <- datasets$train

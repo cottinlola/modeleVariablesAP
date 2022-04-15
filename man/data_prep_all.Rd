@@ -8,9 +8,9 @@ train and test sets}
 \usage{
 data_prep_all(
   data,
-  reduce_mil = FALSE,
-  reduce_by = NULL,
   n_min_years = 5,
+  normalize = TRUE,
+  reduce_mil = FALSE,
   outliers_custom_cutoff = NULL,
   split_pct_train = 0.9
 )
@@ -18,12 +18,13 @@ data_prep_all(
 \arguments{
 \item{data}{A data.frame: the full dataset}
 
-\item{reduce_mil}{A logical indicating if thousands conversion should be done}
-
-\item{reduce_by}{A character specifying a variable to reduce by}
-
 \item{n_min_years}{An integer giving the minimal number of years a farm
 should appeared in the data to be selected}
+
+\item{normalize}{A logical indicating if numerical variables should be
+normalized}
+
+\item{reduce_mil}{A logical indicating if thousands conversion should be done}
 
 \item{outliers_custom_cutoff}{Threshold to identified outliers}
 
