@@ -17,4 +17,5 @@ data_normalize <- function(data) {
   data <- reduce_by(data[data$TYPEXPL.IND %in% breeding, ], "UGB.IND")
   data <- reduce_by(data[data$TYPEXPL.IND %in% farming, ],
                     "SURFACE.IND")
+  return(data)
 }
