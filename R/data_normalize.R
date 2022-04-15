@@ -14,8 +14,9 @@ data_normalize <- function(data) {
                 "volailles")
   farming <- c("arboriculture", "grandes_cultures", "maraichages",
                "polyculture", "viticulture")
-  data <- reduce_by(data[data$TYPEXPL.IND %in% breeding, ], "UGB.IND")
-  data <- reduce_by(data[data$TYPEXPL.IND %in% farming, ],
-                    "SURFACE.IND")
+  breeding_idx <- data$TYPEXPL.IND %in% breeding
+  farming_idx <- data$TYPEXPL.IND %in% farming
+  data[breeding_idx, ] <- reduce_by(data[breeding_idx, ], "UGB.IND")
+  data[farming_idx, ] <- reduce_by(data[farming_idx, ], "SURFACE.IND")
   return(data)
 }
