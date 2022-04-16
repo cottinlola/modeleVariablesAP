@@ -27,8 +27,7 @@ mod_mixtes <- function(data, y_name, effets,
                                optCtrl = list(maxfun = 2e5),
                                boundary.tol = 1e-2,
                                check.conv.singular =
-                                 lme4::.makeCC(action = "ignore", tol = 1e-2),
-                               tolPwrss = 1e-2)
+                                 lme4::.makeCC(action = "ignore", tol = 1e-2))
 )
     return(mod_lmer)
 }
