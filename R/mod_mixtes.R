@@ -22,7 +22,7 @@ mod_mixtes <- function(data, y_name, effets,
     }
     mod_lmer <- lme4::lmer(formule, data = data,
                            control =
-                             lme4::glmerControl(
+                             lme4::lmerControl(
                                optimizer = "bobyqa",
                                optCtrl = list(maxfun = 2e5),
                                boundary.tol = 1e-2,
