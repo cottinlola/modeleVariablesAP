@@ -20,6 +20,15 @@ mod_mixtes <- function(data, y_name, effets,
         formule <- as.formula(paste0(y_name, "~",
                                      paste0(c(vars, effets), collapse = "+")))
     }
-    mod_lmer <- lme4::lmer(formule, data = data)
+    mod_lmer <- lme4::lmer(formule, data = data,
+                           control =
+                             glmerControl(optimizer = "bobyqa",
+                                          optCtrl = list(maxfun = 2e5),
+                                          boundary.tol = 1e-2,
+                                          check.conv.singular =
+                                            .makeCC(action = "ignore",
+                                                    tol = 1e-2),
+                                          tolPwrss = 1e-2)
+)
     return(mod_lmer)
 }
