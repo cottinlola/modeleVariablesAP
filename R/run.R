@@ -106,7 +106,6 @@ run_add_model <- function(models, model_name, model_func, data, y_name,
     run_model(model_func, data, y_name, x_names, effects)
   }, error = function(cond) {
     message(paste0("Erreur pendant l'entrainement du model ", model_name))
-    message(cond)
     return(NULL)
   })
   if (!is.null(model)) {
