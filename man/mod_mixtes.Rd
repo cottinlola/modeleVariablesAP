@@ -4,23 +4,16 @@
 \alias{mod_mixtes}
 \title{Applique un modèle mixte}
 \usage{
-mod_mixtes(
-  data,
-  y_name,
-  effets,
-  vars = setdiff(names(data), y_name),
-  formule = "auto"
-)
+mod_mixtes(data, x_names, y_name, effets, formule = "auto")
 }
 \arguments{
 \item{data}{jeu d'apprentissage du modèle}
 
+\item{x_names}{vecteur des noms des variables explicatives}
+
 \item{y_name}{variable à expliquer}
 
 \item{effets}{effets aléatoires}
-
-\item{vars}{vecteur des noms des variables explicatives
-(par défaut toutes les variables sauf y)}
 
 \item{formule}{formule de l'équation du modèle
 (par défaut : y_name ~ vars_1 + vars_2 + ... + effets)}

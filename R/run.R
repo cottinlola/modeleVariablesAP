@@ -60,33 +60,35 @@ run <- function(data = NULL, n_min_years = 5, normalize = TRUE,
   if (traces) print("Linear")
   # Univariate
   if (traces) print("Univariate")
-  mods_uni_lm <- mod_uni_lineaires(data_train, x_names, y_name)
+  models <- mod_uni_lineaires(data_train, x_names, y_name)
   # Multivariate
   if (traces) print("Multivariate")
-  mod_all_lm <- mod_lineaire(data_train, x_names, y_name)
+  models <- run_add_model(models, "all_lm",
+                          mod_lineaire, data_train, x_names, y_name)
   # EN
   if (traces) print("EN")
   mod_en <- mod_cv_penalized(data_train, x_names, y_name)
   x_en <- model_variables(mod_en)
-  mod_en_lm <- mod_lineaire(data_train, x_en, y_name)
+  models <- run_add_model(models, "en_lm",
+                          mod_lineaire, data_train, x_en, y_name)
   # Stepwise
   if (traces) print("Stepwise")
-  mod_step_lm <- mod_stepwise(data_train, x_names, y_name)
-  x_step <- model_variables(mod_step_lm)
+  models <- run_add_model(models, "step_lm",
+                          mod_stepwise, data_train, x_names, y_name)
+  x_step <- model_variables(models[["step_lm"]])
 
   # Mixte
   if (traces) print("Mixte")
   if (traces) print("Multivariate")
-  mod_all_mxt <- mod_mixtes(data_train, y_name, effects, x_names)
+  models <- run_add_model(models, "all_mxt",
+                          mod_mixtes, data_train, x_names, y_name, effects)
   if (traces) print("EN")
-  mod_en_mxt <- mod_mixtes(data_train, y_name, effects, x_en)
+  models <- run_add_model(models, "en_mxt",
+                          mod_mixtes, data_train, x_en, y_name, effects)
   if (traces) print("Stepwise")
-  mod_step_mxt <- mod_mixtes(data_train, y_name, effects, x_step)
+  models <- run_add_model(models, "step_mxt",
+                          mod_mixtes, data_train, x_step, y_name, effects)
 
-  models <- c(mods_uni_lm, list(mod_all_lm), list(mod_en_lm), list(mod_step_lm),
-              list(mod_all_mxt), list(mod_en_mxt), list(mod_step_mxt))
-  names(models) <- c(names(mods_uni_lm), "all_lm", "en_lm", "step_lm",
-                     "all_mxt", "en_mxt", "step_mxt")
   if (traces) print("Performances")
   models_perf <- models_performance(models = models, data_test = data_test,
                                     y_name = y_name, metric = metric,
@@ -96,4 +98,32 @@ run <- function(data = NULL, n_min_years = 5, normalize = TRUE,
   models_vars <- models_variables(models = models)
 
   return(list(models = models, perf = models_perf, vars = models_vars))
+}
+
+run_add_model <- function(models, model_name, model_func, data, y_name,
+                          x_names, effects = NULL) {
+  model <- tryCatch({
+    return(run_model(model_func, data, y_name, x_names, effects))
+  }, error = function(cond) {
+    message(paste0("Erreur pendant l'entrainement du model ", model_name))
+    message(cond)
+    return(NULL)
+  })
+  if (!is.null(model)) {
+    models <- add_model(models, model_name, model)
+  }
+  return(models)
+}
+run_model <- function(model_func, data, y_name, x_names, effects) {
+  if (is.null(effects)) {
+    model <- model_func(data, y_name, x_names)
+  } else {
+    model <- model_func(data, y_name, x_names, effects)
+  }
+  return(model)
+}
+add_model <- function(models, model_name, model) {
+  models <- c(models, list(model))
+  names(models)[[length(models)]] <- model_name
+  return(models)
 }
