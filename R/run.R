@@ -103,7 +103,7 @@ run <- function(data = NULL, n_min_years = 5, normalize = TRUE,
 run_add_model <- function(models, model_name, model_func, data, y_name,
                           x_names, effects = NULL) {
   model <- tryCatch({
-    return(run_model(model_func, data, y_name, x_names, effects))
+    run_model(model_func, data, y_name, x_names, effects)
   }, error = function(cond) {
     message(paste0("Erreur pendant l'entrainement du model ", model_name))
     message(cond)
