@@ -24,27 +24,39 @@ mod_backward <- function(data, x_names, y_name, r2_threshold = .01) {
     # pval (ignoring intercept)
     coefs_pval <- coefs[2:nrow(coefs), 4]
     # variable with highest p.val not already tested for removal
-    var_to_remove <- setdiff(names(coefs_pval[order(coefs_pval,
-                                                    decreasing = TRUE)]),
-                             removed_vars)
-    if (length(var_to_remove) == 0) {
+    x_to_remove <- setdiff(names(coefs_pval[order(coefs_pval,
+                                                  decreasing = TRUE)]),
+                           removed_vars)
+    if (length(x_to_remove) == 0) {
       # no more variable to test for removal
       break
     }
-    # remove variable
-    var_to_remove <- var_to_remove[[1]]
-    removed_vars <- c(removed_vars, var_to_remove)
-    x_names <- setdiff(x_names, var_to_remove)
-    model <- mod_lineaire(data, x_names, y_name)
-    mod_sum <- summary(model)
-    if (adj_r2 - mod_sum$adj.r.squared < r2_threshold) {
-      best_mod_sum <- mod_sum
-    } else {
-      # put back variable
-      x_names <- c(x_names, var_to_remove)
-    }
+    res <- test_for_removal(best_mod_sum, x_names, x_to_remove[[1]])
+    best_mod_sum <- res$best_mod_sum
+    x_names <- res$x_names
   }
-  # add back non numeric vars to the final model
+  # add back non numeric vars
   x_names <- c(x_names, x_non_num_names)
+  for (x_name in x_non_num_names) {
+    res <- test_for_removal(best_mod_sum, x_names, x_name)
+    best_mod_sum <- res$best_mod_sum
+    x_names <- res$x_names
+  }
   return(list(model = mod_lineaire(data, x_names, y_name), x_names = x_names))
+}
+
+test_for_removal <- function(best_mod_sum, x_names, x_to_remove) {
+  # get adujsted R2
+  adj_r2 <- best_mod_sum$adj.r.squared
+  # remove variable
+  x_names <- setdiff(x_names, x_to_remove)
+  model <- mod_lineaire(data, x_names, y_name)
+  mod_sum <- summary(model)
+  if (adj_r2 - mod_sum$adj.r.squared < r2_threshold) {
+    best_mod_sum <- mod_sum
+  } else {
+    # put back variable
+    x_names <- c(x_names, x_to_remove)
+  }
+  return(best_mod_sum = best_mod_sum, x_names = x_names)
 }
