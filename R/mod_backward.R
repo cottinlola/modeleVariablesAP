@@ -33,21 +33,24 @@ mod_backward <- function(data, x_names, y_name, r2_threshold = .01) {
     }
     x_to_remove <- x_to_remove[[1]]
     removed_vars <- c(removed_vars, x_to_remove)
-    res <- test_for_removal(best_mod_sum, x_names, y_name, x_to_remove)
+    res <- test_for_removal(best_mod_sum, data, x_names, y_name, x_to_remove,
+                            r2_threshold)
     best_mod_sum <- res$best_mod_sum
     x_names <- res$x_names
   }
   # add back non numeric vars
   x_names <- c(x_names, x_non_num_names)
   for (x_name in x_non_num_names) {
-    res <- test_for_removal(best_mod_sum, x_names, x_name)
+    res <- test_for_removal(best_mod_sum, data, x_names, y_name, x_name,
+                            r2_threshold)
     best_mod_sum <- res$best_mod_sum
     x_names <- res$x_names
   }
   return(list(model = mod_lineaire(data, x_names, y_name), x_names = x_names))
 }
 
-test_for_removal <- function(best_mod_sum, x_names, y_name, x_to_remove) {
+test_for_removal <- function(best_mod_sum, data, x_names, y_name, x_to_remove,
+                             r2_threshold) {
   # get adujsted R2
   adj_r2 <- best_mod_sum$adj.r.squared
   # remove variable
