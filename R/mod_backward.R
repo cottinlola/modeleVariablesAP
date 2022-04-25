@@ -45,5 +45,6 @@ mod_backward <- function(data, x_names, y_name, r2_threshold = .01) {
     }
   }
   # add back non numeric vars to the final model
-  return(mod_lineaire(data, c(x_names, x_non_num_names), y_name))
+  x_names <- c(x_names, x_non_num_names)
+  return(list(model = mod_lineaire(data, x_names, y_name), x_names = x_names))
 }
