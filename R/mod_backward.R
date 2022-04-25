@@ -23,7 +23,7 @@ mod_backward <- function(data, x_names, y_name, r2_threshold = .01) {
     coefs <- best_mod_sum$coefficients
     # pval (ignoring intercept)
     coefs_pval <- coefs[2:nrow(coefs), 4]
-    # variable with highest p.val not already tested for removal
+    # variables by highest p.val not already tested for removal
     x_to_remove <- setdiff(names(coefs_pval[order(coefs_pval,
                                                   decreasing = TRUE)]),
                            removed_vars)
@@ -31,7 +31,9 @@ mod_backward <- function(data, x_names, y_name, r2_threshold = .01) {
       # no more variable to test for removal
       break
     }
-    res <- test_for_removal(best_mod_sum, x_names, x_to_remove[[1]])
+    x_to_remove <- x_to_remove[[1]]
+    removed_vars <- c(removed_vars, x_to_remove)
+    res <- test_for_removal(best_mod_sum, x_names, y_name, x_to_remove)
     best_mod_sum <- res$best_mod_sum
     x_names <- res$x_names
   }
@@ -45,7 +47,7 @@ mod_backward <- function(data, x_names, y_name, r2_threshold = .01) {
   return(list(model = mod_lineaire(data, x_names, y_name), x_names = x_names))
 }
 
-test_for_removal <- function(best_mod_sum, x_names, x_to_remove) {
+test_for_removal <- function(best_mod_sum, x_names, y_name, x_to_remove) {
   # get adujsted R2
   adj_r2 <- best_mod_sum$adj.r.squared
   # remove variable
