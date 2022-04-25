@@ -26,6 +26,7 @@ mod_backward <- function(data, x_names, y_name, r2_threshold = .01) {
     # variable with highest p.val not already tested for removal
     var_to_remove <- setdiff(names(order(coefs_pval, decreasing = TRUE)),
                              removed_vars)[[1]]
+    print(var_to_remove)
     if (length(var_to_remove) == 0) {
       # no more variable to test for removal
       break
