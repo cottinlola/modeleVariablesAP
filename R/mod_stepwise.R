@@ -1,8 +1,8 @@
 #' Régression stepwise (pas-à-pas)
 #'
+#' @param data le jeu de données
 #' @param x_names les noms des variables explicatives
 #' @param y_name le nom de la variable à expliquer
-#' @param data le jeu de données
 #' @param direction la méthode utilisée dans le stepwise :
 #'                  "backward", "forward" ou "both (par défaut)
 #' @return model : le meilleur modèle (basé sur l'AIC) par la méthode stepwise
