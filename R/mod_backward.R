@@ -58,5 +58,5 @@ test_for_removal <- function(best_mod_sum, x_names, x_to_remove) {
     # put back variable
     x_names <- c(x_names, x_to_remove)
   }
-  return(best_mod_sum = best_mod_sum, x_names = x_names)
+  return(list(best_mod_sum = best_mod_sum, x_names = x_names))
 }
