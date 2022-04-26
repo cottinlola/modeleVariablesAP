@@ -4,7 +4,7 @@
 \alias{mod_backward}
 \title{Backward regression based on adjusted R2}
 \usage{
-mod_backward(data, x_names, y_name, r2_threshold = 0.01)
+mod_backward(data, x_names, y_name, r2_threshold = 0.001)
 }
 \arguments{
 \item{data}{training dataset}
