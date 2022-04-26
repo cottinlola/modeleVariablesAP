@@ -22,6 +22,9 @@ model_variables.glmnet <- function(model, lambda = NULL) {
   lambda_idx <- which(model$lambda == lambda)
   return(names(which(model$beta[, lambda_idx] != 0)))
 }
+#'
+#' @export
+#'
 model_variables.cv.glmnet <- model_variables.glmnet
 
 #' Returns the variables' names of a LM fitted model
@@ -39,6 +42,9 @@ model_variables.lm <- function(model, lambda = NULL) {
   vars <- all.vars(terms(model))
   return(vars[2:length(vars)])
 }
+#'
+#' @export
+#'
 model_variables.lmerMod <- model_variables.lm
 
 models_variables <- function(models, names = NULL, lambda = NULL) {
