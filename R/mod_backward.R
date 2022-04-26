@@ -46,7 +46,7 @@ mod_backward <- function(data, x_names, y_name, r2_threshold = .001) {
     best_mod_sum <- res$best_mod_sum
     x_names <- res$x_names
   }
-  return(list(model = mod_lineaire(data, x_names, y_name), x_names = x_names))
+  return(mod_lineaire(data, x_names, y_name))
 }
 
 test_for_removal <- function(best_mod_sum, data, x_names, y_name, x_to_remove,
