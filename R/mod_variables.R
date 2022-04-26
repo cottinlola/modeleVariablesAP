@@ -1,3 +1,6 @@
+#'
+#' @export
+#'
 model_variables <- function(model, ...) UseMethod("model_variables")
 
 #' Returns the variables' names of non zero betas of an EN fitted model
