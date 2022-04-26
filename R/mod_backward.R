@@ -9,7 +9,7 @@
 #'
 #' @examples
 #' mod_backward(data, x_names, y_name")
-mod_backward <- function(data, x_names, y_name, r2_threshold = .01) {
+mod_backward <- function(data, x_names, y_name, r2_threshold = .001) {
   # only try to remove numeric var
   x_num_names <- get_numeric_var(data[, x_names])
   x_non_num_names <- setdiff(x_names, x_num_names)
