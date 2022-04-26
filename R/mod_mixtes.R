@@ -17,11 +17,11 @@ mod_mixtes <- function(data, x_names, y_name, effets, formule = "auto") {
         formule <- as.formula(paste0(y_name, "~",
                                      paste0(c(x_names, effets), collapse = "+")))
     }
-    mod_lmer <- lme4::glmer(formule, data = data,
-                            control =
-                              lme4::lmerControl(
-                                optimizer = "bobyqa",
-                                optCtrl = list(maxfun = 2e5))
+    mod_lmer <- lme4::lmer(formule, data = data,
+                           control =
+                             lme4::lmerControl(
+                               optimizer = "bobyqa",
+                               optCtrl = list(maxfun = 2e5))
 )
     return(mod_lmer)
 }
