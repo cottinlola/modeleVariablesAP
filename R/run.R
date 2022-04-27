@@ -76,6 +76,11 @@ run <- function(data = NULL, n_min_years = 5, normalize = TRUE,
   models <- run_add_model(models, "step_lm",
                           mod_stepwise, data_train, x_names, y_name)
   x_step <- model_variables(models[["step_lm"]])
+  # Backward
+  if (traces) print("Backward")
+  models <- run_add_model(models, "back_lm",
+                          mod_backward, data_train, x_names, y_name)
+  x_back <- model_variables(models[["back_lm"]])
 
   # Mixte
   if (traces) print("Mixte")
@@ -88,6 +93,9 @@ run <- function(data = NULL, n_min_years = 5, normalize = TRUE,
   if (traces) print("Stepwise")
   models <- run_add_model(models, "step_mxt",
                           mod_mixtes, data_train, x_step, y_name, effects)
+  if (traces) print("Backward")
+  models <- run_add_model(models, "back_mxt",
+                          mod_mixtes, data_train, x_back, y_name, effects)
 
   if (traces) print("Performances")
   models_perf <- models_performance(models = models, data_test = data_test,

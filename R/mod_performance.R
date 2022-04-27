@@ -22,8 +22,9 @@ model_performance <- function(model, data_test, y_name, metric,
                      err_above_cutoff)
   df <- data.frame(r = r_squared, err = err$err,
                    est_below = err$est_below, err_above = err$err_above)
-  colnames(df) <- c("R2", metric, paste0("mape<=", est_below_cutoff, "%"),
-                    paste0("mape.value=", err_above_cutoff, "%"))
+  colnames(df) <- c("R2", metric, paste0("tol.percent(", est_below_cutoff,
+                                         "%)"),
+                    paste0("mape.value(", err_above_cutoff, "%)"))
   return(df)
 }
 
